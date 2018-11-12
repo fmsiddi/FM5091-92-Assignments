@@ -10,7 +10,8 @@ namespace Random1
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("What is your correlation coefficient? Pick a number between -1 and 1. If you want uncorrelated pairs, enter 0.");
+            Console.WriteLine("What is your correlation coefficient? /n" + 
+                              "Pick a number between -1 and 1. If you want uncorrelated pairs, enter 0. /n");
             double cor = Convert.ToDouble(Console.ReadLine());
             Console.WriteLine("Type 1 for TwelveUniformRandom \n" +
                               "Type 2 for Box-Mueller \n" +
@@ -40,6 +41,8 @@ namespace Random1
                 Console.ReadLine();
             }
         }
+
+
         static void TwelveUniformRandom(int n, double cor)
         {
             Random rnd = new Random();
@@ -55,28 +58,32 @@ namespace Random1
                 double output1 = randn1 - 6;
                 double output2 = randn2 - 6;
                 double z1 = output1;
-                double z2 = cor * output1 + Math.Sqrt(1 - (Math.Pow(cor, 2)) * output2);
+                double z2 = (cor * output1) + (Math.Sqrt(1 - (Math.Pow(cor, 2))) * output2);
                 Console.WriteLine(z1);
                 Console.WriteLine(z2);
             }
             Console.ReadLine();
         }
+
+
         static void BoxMueller(int n, double cor)
         {
             Random rnd = new Random();
             for (int i = 0; i <= n; i++)
             {
-                double randn1 = 2 * (rnd.NextDouble() - 1);
-                double randn2 = 2 * (rnd.NextDouble() - 1);
+                double randn1 = rnd.NextDouble();
+                double randn2 = rnd.NextDouble();
                 double BMOne = Math.Sqrt(-2 * Math.Log(randn1)) * Math.Cos(2 * Math.PI * randn2);
                 double BMTwo = Math.Sqrt(-2 * Math.Log(randn1)) * Math.Sin(2 * Math.PI * randn2);
                 double z1 = BMOne;
-                double z2 = cor * BMOne + Math.Sqrt(1 - (Math.Pow(cor, 2)) * BMTwo);
+                double z2 = (cor * BMOne) + (Math.Sqrt(1 - (Math.Pow(cor, 2))) * BMTwo);
                 Console.WriteLine(z1);
                 Console.WriteLine(z2);
             }
             Console.ReadLine();
         }
+
+
         static void PolarRejection(int n, double cor)
         {
             Random rnd = new Random();
@@ -90,18 +97,16 @@ namespace Random1
             {
                 do
                 {
-                    randn1 = 2 * (rnd.NextDouble() - 1);
-                    randn2 = 2 * (rnd.NextDouble() - 1);
+                    randn1 = rnd.NextDouble();
+                    randn2 = rnd.NextDouble();
                     w = Math.Pow(randn1, 2) + Math.Pow(randn2, 2);
                 }
                 while (w > 1);
-                c = Math.Sqrt(-2 * Math.Log(w) / w);
+                c = Math.Sqrt(-2 * (Math.Log(w) / w));
                 y1 = c * randn1;
                 y2 = c * randn2;
                 double z1 = y1;
-                double z2 = cor * y1 + Math.Sqrt(1 - (Math.Pow(cor, 2)) * y2);
-                Console.WriteLine(z1);
-                Console.WriteLine(z2);
+                double z2 = (cor * y1) + (Math.Sqrt(1 - (Math.Pow(cor, 2))) * y2);
                 Console.WriteLine(z1);
                 Console.WriteLine(z2);
             }
