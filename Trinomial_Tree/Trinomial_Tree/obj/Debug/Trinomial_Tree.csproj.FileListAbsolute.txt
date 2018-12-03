@@ -1,0 +1,6 @@
+c:\users\farez siddiqui\documents\visual studio 2015\Projects\Trinomial_Tree\Trinomial_Tree\bin\Debug\Trinomial_Tree.exe.config
+c:\users\farez siddiqui\documents\visual studio 2015\Projects\Trinomial_Tree\Trinomial_Tree\bin\Debug\Trinomial_Tree.exe
+c:\users\farez siddiqui\documents\visual studio 2015\Projects\Trinomial_Tree\Trinomial_Tree\bin\Debug\Trinomial_Tree.pdb
+c:\users\farez siddiqui\documents\visual studio 2015\Projects\Trinomial_Tree\Trinomial_Tree\obj\Debug\Trinomial_Tree.csprojResolveAssemblyReference.cache
+c:\users\farez siddiqui\documents\visual studio 2015\Projects\Trinomial_Tree\Trinomial_Tree\obj\Debug\Trinomial_Tree.exe
+c:\users\farez siddiqui\documents\visual studio 2015\Projects\Trinomial_Tree\Trinomial_Tree\obj\Debug\Trinomial_Tree.pdb
