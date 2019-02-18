@@ -129,7 +129,7 @@ namespace WindowsFormsApplication2
                 }
                 else
                 {
-                    terminalPayoffVector[i] = K - Math.Max(simulatedStockPaths[i, timeSteps - 1], 0);
+                    terminalPayoffVector[i] = Math.Max(K - simulatedStockPaths[i, timeSteps - 1], 0);
                     sum += terminalPayoffVector[i];
                     discountedPayoffVector[i] = terminalPayoffVector[i] * Math.Exp(-r * T);
                 }
