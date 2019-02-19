@@ -100,7 +100,7 @@ namespace WindowsFormsApplication2
             thetaOutput.Text = Theta.ToString();
             rhoOutput.Text = Rho.ToString();
         }
-        public void CalculateMethod(double s0, double K, double vol, double r, double T, int simNumber, int timeSteps, double callOrPut, double[,] randomMatrix, out double Price, out double SE)
+        public void CalculateMethod(double s0, double K, double vol, double r, double T, int simNumber, int timeSteps, int callOrPut, double[,] randomMatrix, out double Price, out double SE)
         {
             double deltaT = T / timeSteps;
             double sum = 0;
@@ -109,13 +109,15 @@ namespace WindowsFormsApplication2
             double[,] simulatedStockPaths = new double[simNumber,timeSteps];
             double[] terminalPayoffVector = new double[simNumber];
             double[] discountedPayoffVector = new double[simNumber];
+            double annoying1 = (r - (Math.Pow(vol, 2) / 2) * deltaT);
+            double annoying2 = vol * Math.Sqrt(deltaT);
 
             for (int i = 0; i < simNumber; i++)
             {
                 simulatedStockPaths[i, 0] = s0;
                 for (int j = 1; j < timeSteps; j++)
                 {
-                    simulatedStockPaths[i, j] = simulatedStockPaths[i, j - 1] * Math.Exp(((r - ((vol * vol) / 2)) * deltaT) + (vol * Math.Sqrt(deltaT) * randomMatrix[i, j]));
+                    simulatedStockPaths[i, j] = simulatedStockPaths[i, j - 1] * Math.Exp(annoying1 + (annoying2 * randomMatrix[i, j]));
                 }
             }
 
@@ -127,11 +129,15 @@ namespace WindowsFormsApplication2
                     sum += terminalPayoffVector[i];
                     discountedPayoffVector[i] = terminalPayoffVector[i] * Math.Exp(-r * T);
                 }
-                else
+                else if (callOrPut == 0)
                 {
                     terminalPayoffVector[i] = Math.Max(K - simulatedStockPaths[i, timeSteps - 1], 0);
                     sum += terminalPayoffVector[i];
                     discountedPayoffVector[i] = terminalPayoffVector[i] * Math.Exp(-r * T);
+                }
+                else
+                {
+                    throw new System.ArgumentException("You must type 1 for Call or 0 for Put.");
                 }
             }
 
@@ -142,24 +148,26 @@ namespace WindowsFormsApplication2
                 sumForSD += Math.Pow(discountedPayoffVector[i] - Price, 2);
             }
 
-            SD = Math.Sqrt((1 / (simNumber - 1)) * sumForSD);
+            SD = Math.Sqrt(sumForSD / (simNumber - 1));
             SE = SD / Math.Sqrt(simNumber);
         }
 
-        public void CalculateMethodJustPrice(double s0, double K, double vol, double r, double T, int simNumber, int timeSteps, double callOrPut, double[,] randomMatrix, out double Price)
+        public void CalculateMethodJustPrice(double s0, double K, double vol, double r, double T, int simNumber, int timeSteps, int callOrPut, double[,] randomMatrix, out double Price)
         {
             double deltaT = T / timeSteps;
             double sum = 0;
             double[,] simulatedStockPaths = new double[simNumber, timeSteps];
             double[] terminalPayoffVector = new double[simNumber];
             double[] discountedPayoffVector = new double[simNumber];
+            double annoying1 = (r - (Math.Pow(vol, 2) / 2) * deltaT);
+            double annoying2 = vol * Math.Sqrt(deltaT);
 
             for (int i = 0; i < simNumber; i++)
             {
                 simulatedStockPaths[i, 0] = s0;
                 for (int j = 1; j < timeSteps; j++)
                 {
-                    simulatedStockPaths[i, j] = simulatedStockPaths[i, j - 1] * Math.Exp(((r - ((vol * vol) / 2)) * deltaT) + (vol * Math.Sqrt(deltaT) * randomMatrix[i, j]));
+                    simulatedStockPaths[i, j] = simulatedStockPaths[i, j - 1] * Math.Exp(annoying1 + (annoying2 * randomMatrix[i, j]));
                 }
             }
 
@@ -171,11 +179,15 @@ namespace WindowsFormsApplication2
                     sum += terminalPayoffVector[i];
                     discountedPayoffVector[i] = terminalPayoffVector[i] * Math.Exp(-r * T);
                 }
-                else
+                else if (callOrPut == 0)
                 {
-                    terminalPayoffVector[i] = K - Math.Max(simulatedStockPaths[i, timeSteps - 1], 0);
+                    terminalPayoffVector[i] = Math.Max(K - simulatedStockPaths[i, timeSteps - 1], 0);
                     sum += terminalPayoffVector[i];
                     discountedPayoffVector[i] = terminalPayoffVector[i] * Math.Exp(-r * T);
+                }
+                else
+                {
+                    throw new System.ArgumentException("You must type 1 for Call or 0 for Put.");
                 }
             }
 
@@ -214,7 +226,10 @@ namespace WindowsFormsApplication2
                     randomMatrix [i, j] = y1;
 
                     if (i + 1 < simulations)
-                        randomMatrix [i + 1, j] = y2;
+                    {
+                        randomMatrix[i + 1, j] = y2;
+                    }
+                      
                 }
             }
         }

@@ -33,12 +33,10 @@
             this.strikeInput = new System.Windows.Forms.TextBox();
             this.volInput = new System.Windows.Forms.TextBox();
             this.IRInput = new System.Windows.Forms.TextBox();
-            this.dividendInput = new System.Windows.Forms.TextBox();
             this.timeInput = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.Calculate = new System.Windows.Forms.Button();
             this.numberOfSimulations = new System.Windows.Forms.TextBox();
@@ -106,14 +104,6 @@
             this.IRInput.TabIndex = 4;
             this.IRInput.TextChanged += new System.EventHandler(this.IRInput_TextChanged);
             // 
-            // dividendInput
-            // 
-            this.dividendInput.Location = new System.Drawing.Point(134, 170);
-            this.dividendInput.Name = "dividendInput";
-            this.dividendInput.Size = new System.Drawing.Size(100, 20);
-            this.dividendInput.TabIndex = 5;
-            this.dividendInput.TextChanged += new System.EventHandler(this.dividendInput_TextChanged);
-            // 
             // timeInput
             // 
             this.timeInput.Location = new System.Drawing.Point(134, 196);
@@ -149,15 +139,6 @@
             this.label4.Size = new System.Drawing.Size(68, 13);
             this.label4.TabIndex = 9;
             this.label4.Text = "Interest Rate";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(50, 173);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(75, 13);
-            this.label5.TabIndex = 10;
-            this.label5.Text = "Dividend Rate";
             // 
             // label6
             // 
@@ -384,12 +365,10 @@
             this.Controls.Add(this.numberOfSimulations);
             this.Controls.Add(this.Calculate);
             this.Controls.Add(this.label6);
-            this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.timeInput);
-            this.Controls.Add(this.dividendInput);
             this.Controls.Add(this.IRInput);
             this.Controls.Add(this.volInput);
             this.Controls.Add(this.strikeInput);
@@ -410,12 +389,10 @@
         private System.Windows.Forms.TextBox strikeInput;
         private System.Windows.Forms.TextBox volInput;
         private System.Windows.Forms.TextBox IRInput;
-        private System.Windows.Forms.TextBox dividendInput;
         private System.Windows.Forms.TextBox timeInput;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Button Calculate;
         private System.Windows.Forms.TextBox numberOfSimulations;
