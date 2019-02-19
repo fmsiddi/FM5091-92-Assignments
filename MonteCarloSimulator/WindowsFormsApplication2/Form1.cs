@@ -102,7 +102,7 @@ namespace WindowsFormsApplication2
         }
         public void CalculateMethod(double s0, double K, double vol, double r, double T, int simNumber, int timeSteps, int callOrPut, double[,] randomMatrix, out double Price, out double SE)
         {
-            double deltaT = T / timeSteps;
+            double deltaT = T / (Convert.ToDouble(timeSteps - 1));
             double sum = 0;
             double SD = 0;
             double sumForSD = 0;
@@ -154,12 +154,12 @@ namespace WindowsFormsApplication2
 
         public void CalculateMethodJustPrice(double s0, double K, double vol, double r, double T, int simNumber, int timeSteps, int callOrPut, double[,] randomMatrix, out double Price)
         {
-            double deltaT = T / timeSteps;
+            double deltaT = T / (Convert.ToDouble(timeSteps - 1));
             double sum = 0;
             double[,] simulatedStockPaths = new double[simNumber, timeSteps];
             double[] terminalPayoffVector = new double[simNumber];
             double[] discountedPayoffVector = new double[simNumber];
-            double annoying1 = (r - (Math.Pow(vol, 2) / 2) * deltaT);
+            double annoying1 = (r - (Math.Pow(vol, 2)*0.5) * deltaT);
             double annoying2 = vol * Math.Sqrt(deltaT);
 
             for (int i = 0; i < simNumber; i++)
@@ -229,7 +229,6 @@ namespace WindowsFormsApplication2
                     {
                         randomMatrix[i + 1, j] = y2;
                     }
-                      
                 }
             }
         }
