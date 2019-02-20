@@ -68,6 +68,7 @@
             this.stockInput.Name = "stockInput";
             this.stockInput.Size = new System.Drawing.Size(100, 20);
             this.stockInput.TabIndex = 0;
+            this.stockInput.Text = "50";
             this.stockInput.TextChanged += new System.EventHandler(this.stockInput_TextChanged);
             // 
             // label1
@@ -86,6 +87,7 @@
             this.strikeInput.Name = "strikeInput";
             this.strikeInput.Size = new System.Drawing.Size(100, 20);
             this.strikeInput.TabIndex = 2;
+            this.strikeInput.Text = "50";
             this.strikeInput.TextChanged += new System.EventHandler(this.strikeInput_TextChanged);
             // 
             // volInput
@@ -94,6 +96,7 @@
             this.volInput.Name = "volInput";
             this.volInput.Size = new System.Drawing.Size(100, 20);
             this.volInput.TabIndex = 3;
+            this.volInput.Text = "0.5";
             this.volInput.TextChanged += new System.EventHandler(this.volInput_TextChanged);
             // 
             // IRInput
@@ -102,6 +105,7 @@
             this.IRInput.Name = "IRInput";
             this.IRInput.Size = new System.Drawing.Size(100, 20);
             this.IRInput.TabIndex = 4;
+            this.IRInput.Text = "0.05";
             this.IRInput.TextChanged += new System.EventHandler(this.IRInput_TextChanged);
             // 
             // timeInput
@@ -110,6 +114,7 @@
             this.timeInput.Name = "timeInput";
             this.timeInput.Size = new System.Drawing.Size(100, 20);
             this.timeInput.TabIndex = 6;
+            this.timeInput.Text = "1";
             this.timeInput.TextChanged += new System.EventHandler(this.timeInput_TextChanged);
             // 
             // label2
@@ -165,6 +170,7 @@
             this.numberOfSimulations.Name = "numberOfSimulations";
             this.numberOfSimulations.Size = new System.Drawing.Size(100, 20);
             this.numberOfSimulations.TabIndex = 13;
+            this.numberOfSimulations.Text = "10000";
             this.numberOfSimulations.TextChanged += new System.EventHandler(this.numberOfSimulations_TextChanged);
             // 
             // simulationTimeStep
@@ -173,6 +179,7 @@
             this.simulationTimeStep.Name = "simulationTimeStep";
             this.simulationTimeStep.Size = new System.Drawing.Size(100, 20);
             this.simulationTimeStep.TabIndex = 14;
+            this.simulationTimeStep.Text = "100";
             this.simulationTimeStep.TextChanged += new System.EventHandler(this.simulationTimeStep_TextChanged);
             // 
             // label7
@@ -200,6 +207,7 @@
             this.callOrPutInput.Name = "callOrPutInput";
             this.callOrPutInput.Size = new System.Drawing.Size(100, 20);
             this.callOrPutInput.TabIndex = 17;
+            this.callOrPutInput.Text = "1";
             this.callOrPutInput.TextChanged += new System.EventHandler(this.callOrPut_TextChanged);
             // 
             // label9
