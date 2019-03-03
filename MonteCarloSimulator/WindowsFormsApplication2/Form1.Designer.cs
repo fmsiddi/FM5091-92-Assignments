@@ -60,6 +60,7 @@
             this.label15 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
             this.label17 = new System.Windows.Forms.Label();
+            this.Antithetic = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // stockInput
@@ -345,11 +346,23 @@
             this.label17.TabIndex = 32;
             this.label17.Text = "Rho";
             // 
+            // Antithetic
+            // 
+            this.Antithetic.AutoSize = true;
+            this.Antithetic.Location = new System.Drawing.Point(134, 300);
+            this.Antithetic.Name = "Antithetic";
+            this.Antithetic.Size = new System.Drawing.Size(173, 17);
+            this.Antithetic.TabIndex = 33;
+            this.Antithetic.Text = "Antithetic Variance Reduction?";
+            this.Antithetic.UseVisualStyleBackColor = true;
+            this.Antithetic.CheckedChanged += new System.EventHandler(this.Antithetic_CheckedChanged);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(555, 526);
+            this.Controls.Add(this.Antithetic);
             this.Controls.Add(this.label17);
             this.Controls.Add(this.label16);
             this.Controls.Add(this.label15);
@@ -424,6 +437,7 @@
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.CheckBox Antithetic;
     }
 }
 
