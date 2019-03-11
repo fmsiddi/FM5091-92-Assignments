@@ -61,6 +61,7 @@
             this.label16 = new System.Windows.Forms.Label();
             this.label17 = new System.Windows.Forms.Label();
             this.Antithetic = new System.Windows.Forms.CheckBox();
+            this.CV = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // stockInput
@@ -171,7 +172,7 @@
             this.numberOfSimulations.Name = "numberOfSimulations";
             this.numberOfSimulations.Size = new System.Drawing.Size(100, 20);
             this.numberOfSimulations.TabIndex = 13;
-            this.numberOfSimulations.Text = "10000";
+            this.numberOfSimulations.Text = "1000000";
             this.numberOfSimulations.TextChanged += new System.EventHandler(this.numberOfSimulations_TextChanged);
             // 
             // simulationTimeStep
@@ -180,7 +181,7 @@
             this.simulationTimeStep.Name = "simulationTimeStep";
             this.simulationTimeStep.Size = new System.Drawing.Size(100, 20);
             this.simulationTimeStep.TabIndex = 14;
-            this.simulationTimeStep.Text = "100";
+            this.simulationTimeStep.Text = "2";
             this.simulationTimeStep.TextChanged += new System.EventHandler(this.simulationTimeStep_TextChanged);
             // 
             // label7
@@ -357,11 +358,23 @@
             this.Antithetic.UseVisualStyleBackColor = true;
             this.Antithetic.CheckedChanged += new System.EventHandler(this.Antithetic_CheckedChanged);
             // 
+            // CV
+            // 
+            this.CV.AutoSize = true;
+            this.CV.Location = new System.Drawing.Point(134, 323);
+            this.CV.Name = "CV";
+            this.CV.Size = new System.Drawing.Size(165, 17);
+            this.CV.TabIndex = 34;
+            this.CV.Text = "Use Delta as Control Variate?";
+            this.CV.UseVisualStyleBackColor = true;
+            this.CV.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(555, 526);
+            this.Controls.Add(this.CV);
             this.Controls.Add(this.Antithetic);
             this.Controls.Add(this.label17);
             this.Controls.Add(this.label16);
@@ -438,6 +451,7 @@
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.CheckBox Antithetic;
+        private System.Windows.Forms.CheckBox CV;
     }
 }
 

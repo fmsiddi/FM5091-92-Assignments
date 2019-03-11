@@ -46,6 +46,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BlackScholes.cs" />
+    <Compile Include="ControlVariate.cs" />
+    <Compile Include="Pricer.cs" />
+    <Compile Include="Simulator.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
