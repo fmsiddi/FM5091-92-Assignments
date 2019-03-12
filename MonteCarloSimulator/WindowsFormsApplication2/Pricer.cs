@@ -23,27 +23,31 @@ namespace WindowsFormsApplication2
             terminalPayoffVector = new double[simNumber];
             discountedPayoffVector = new double[simNumber];
 
+            for (int i = 0; i < simNumber; i++)
+            {
+                if (callOrPut == 1)
+                {
+                    terminalPayoffVector[i] = Math.Max(simulatedStockPaths[i, timeSteps - 1] - K, 0);
+                }
+                else if (callOrPut == 0)
+                {
+                    terminalPayoffVector[i] = Math.Max(K - simulatedStockPaths[i, timeSteps - 1], 0);
+                }
+                else
+                {
+                    throw new System.ArgumentException("You must type 1 for Call or 0 for Put.");
+                }
+            }
+
             if (!CV)
             {
                 for (int i = 0; i < simNumber; i++)
                 {
-                    if (callOrPut == 1)
-                    {
-                        terminalPayoffVector[i] = Math.Max(simulatedStockPaths[i, timeSteps - 1] - K, 0);
-                    }
-                    else if (callOrPut == 0)
-                    {
-                        terminalPayoffVector[i] = Math.Max(K - simulatedStockPaths[i, timeSteps - 1], 0);
-                    }
-                    else
-                    {
-                        throw new System.ArgumentException("You must type 1 for Call or 0 for Put.");
-                    }
-
                     sum += terminalPayoffVector[i];
                     discountedPayoffVector[i] = terminalPayoffVector[i] * Math.Exp(-r * T);
                     forGreeksSum = sum;
                 }
+
                 forGreeks = forGreeksSum / Convert.ToDouble(simNumber) * Math.Exp(-r * T);
                 p = sum / Convert.ToDouble(simNumber) * Math.Exp(-r * T);
 
@@ -53,7 +57,6 @@ namespace WindowsFormsApplication2
                 }
 
                 SD = Math.Sqrt(sumForSD / (Convert.ToDouble(simNumber) - 1));
-
                 SE = SD / Math.Sqrt(Convert.ToDouble(simNumber));
 
                 return p;
@@ -61,22 +64,6 @@ namespace WindowsFormsApplication2
 
             else
             {
-                for (int i = 0; i < simNumber; i++)
-                {
-                    if (callOrPut == 1)
-                    {
-                        terminalPayoffVector[i] = Math.Max(simulatedStockPaths[i, timeSteps - 1] - K, 0);
-                    }
-                    else if (callOrPut == 0)
-                    {
-                        terminalPayoffVector[i] = Math.Max(K - simulatedStockPaths[i, timeSteps - 1], 0);
-                    }
-                    else
-                    {
-                        throw new System.ArgumentException("You must type 1 for Call or 0 for Put.");
-                    }
-                }
-
                 if (!antithetic)
                 {
                     for (int i = 0; i < simNumber; i++)
@@ -86,6 +73,14 @@ namespace WindowsFormsApplication2
                         sum2 += CT * CT;
                         forGreeksSum += terminalPayoffVector[i];
                     }
+
+                    forGreeks = forGreeksSum / Convert.ToDouble(simNumber) * Math.Exp(-r * T);
+                    p = sum / Convert.ToDouble(simNumber) * Math.Exp(-r * T);
+
+                    SD = Math.Sqrt((sum2 - ((sum * sum) / Convert.ToDouble(simNumber))) * Math.Exp(-2 * r * T) / (Convert.ToDouble(simNumber) - 1));
+                    SE = SD / Math.Sqrt(Convert.ToDouble(simNumber));
+
+                    return p;
                 }
 
                 else
@@ -93,7 +88,7 @@ namespace WindowsFormsApplication2
                     int trueSimNumber = simNumber / 2;
                     for (int i = 0; i < trueSimNumber; i++)
                     {
-                        CT = (terminalPayoffVector[i] + terminalPayoffVector[i + trueSimNumber] - ControlVariate.CVDelta(K, vol, r, T, i, trueSimNumber, timeSteps, antithetic, simulatedStockPaths));
+                        CT = 0.5 * (terminalPayoffVector[i] + terminalPayoffVector[i + trueSimNumber] - ControlVariate.CVDelta(K, vol, r, T, i, trueSimNumber, timeSteps, antithetic, simulatedStockPaths));
                         sum += CT;
                         sum2 += CT * CT;
                     }
@@ -101,16 +96,15 @@ namespace WindowsFormsApplication2
                     {
                         forGreeksSum += terminalPayoffVector[i];
                     }
+
+                    forGreeks = forGreeksSum / Convert.ToDouble(simNumber) * Math.Exp(-r * T);
+                    p = sum / Convert.ToDouble(trueSimNumber) * Math.Exp(-r * T);
+
+                    SD = Math.Sqrt((sum2 - ((sum * sum) / Convert.ToDouble(trueSimNumber))) * Math.Exp(-2 * r * T) / (Convert.ToDouble(trueSimNumber) - 1));
+                    SE = SD / Math.Sqrt(Convert.ToDouble(trueSimNumber));
+
+                    return p;
                 }
-
-                forGreeks = forGreeksSum / Convert.ToDouble(simNumber) * Math.Exp(-r * T);
-                p = sum / Convert.ToDouble(simNumber) * Math.Exp(-r * T);
-
-                SD = Math.Sqrt((sum2 - ((sum * sum) / Convert.ToDouble(simNumber))) * Math.Exp(-2 * r * T) / (Convert.ToDouble(simNumber) - 1));
-
-                SE = SD / Math.Sqrt(Convert.ToDouble(simNumber));
-
-                return p;
             }
         }
     }
