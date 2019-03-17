@@ -62,6 +62,8 @@
             this.label17 = new System.Windows.Forms.Label();
             this.Antithetic = new System.Windows.Forms.CheckBox();
             this.CV = new System.Windows.Forms.CheckBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.lblTimer = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // stockInput
@@ -112,7 +114,7 @@
             // 
             // timeInput
             // 
-            this.timeInput.Location = new System.Drawing.Point(134, 196);
+            this.timeInput.Location = new System.Drawing.Point(134, 169);
             this.timeInput.Name = "timeInput";
             this.timeInput.Size = new System.Drawing.Size(100, 20);
             this.timeInput.TabIndex = 6;
@@ -150,7 +152,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(39, 199);
+            this.label6.Location = new System.Drawing.Point(39, 172);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(86, 13);
             this.label6.TabIndex = 11;
@@ -168,7 +170,7 @@
             // 
             // numberOfSimulations
             // 
-            this.numberOfSimulations.Location = new System.Drawing.Point(134, 222);
+            this.numberOfSimulations.Location = new System.Drawing.Point(134, 195);
             this.numberOfSimulations.Name = "numberOfSimulations";
             this.numberOfSimulations.Size = new System.Drawing.Size(100, 20);
             this.numberOfSimulations.TabIndex = 13;
@@ -177,7 +179,7 @@
             // 
             // simulationTimeStep
             // 
-            this.simulationTimeStep.Location = new System.Drawing.Point(134, 248);
+            this.simulationTimeStep.Location = new System.Drawing.Point(134, 221);
             this.simulationTimeStep.Name = "simulationTimeStep";
             this.simulationTimeStep.Size = new System.Drawing.Size(100, 20);
             this.simulationTimeStep.TabIndex = 14;
@@ -187,7 +189,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(13, 225);
+            this.label7.Location = new System.Drawing.Point(13, 198);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(112, 13);
             this.label7.TabIndex = 15;
@@ -197,7 +199,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(-1, 251);
+            this.label8.Location = new System.Drawing.Point(-1, 224);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(126, 13);
             this.label8.TabIndex = 16;
@@ -205,7 +207,7 @@
             // 
             // callOrPutInput
             // 
-            this.callOrPutInput.Location = new System.Drawing.Point(134, 274);
+            this.callOrPutInput.Location = new System.Drawing.Point(134, 247);
             this.callOrPutInput.Name = "callOrPutInput";
             this.callOrPutInput.Size = new System.Drawing.Size(100, 20);
             this.callOrPutInput.TabIndex = 17;
@@ -222,7 +224,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(43, 277);
+            this.label10.Location = new System.Drawing.Point(43, 250);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(82, 13);
             this.label10.TabIndex = 18;
@@ -350,7 +352,7 @@
             // Antithetic
             // 
             this.Antithetic.AutoSize = true;
-            this.Antithetic.Location = new System.Drawing.Point(134, 300);
+            this.Antithetic.Location = new System.Drawing.Point(134, 273);
             this.Antithetic.Name = "Antithetic";
             this.Antithetic.Size = new System.Drawing.Size(173, 17);
             this.Antithetic.TabIndex = 33;
@@ -361,7 +363,7 @@
             // CV
             // 
             this.CV.AutoSize = true;
-            this.CV.Location = new System.Drawing.Point(134, 323);
+            this.CV.Location = new System.Drawing.Point(134, 296);
             this.CV.Name = "CV";
             this.CV.Size = new System.Drawing.Size(165, 17);
             this.CV.TabIndex = 34;
@@ -369,11 +371,33 @@
             this.CV.UseVisualStyleBackColor = true;
             this.CV.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(332, 48);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(88, 13);
+            this.label5.TabIndex = 35;
+            this.label5.Text = "Calculation Time:";
+            this.label5.Click += new System.EventHandler(this.label5_Click);
+            // 
+            // lblTimer
+            // 
+            this.lblTimer.AutoSize = true;
+            this.lblTimer.Location = new System.Drawing.Point(421, 48);
+            this.lblTimer.Name = "lblTimer";
+            this.lblTimer.Size = new System.Drawing.Size(58, 13);
+            this.lblTimer.TabIndex = 36;
+            this.lblTimer.Text = "00:00:00.0";
+            this.lblTimer.Click += new System.EventHandler(this.lblTimer_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(555, 526);
+            this.Controls.Add(this.lblTimer);
+            this.Controls.Add(this.label5);
             this.Controls.Add(this.CV);
             this.Controls.Add(this.Antithetic);
             this.Controls.Add(this.label17);
@@ -452,6 +476,8 @@
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.CheckBox Antithetic;
         private System.Windows.Forms.CheckBox CV;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label lblTimer;
     }
 }
 

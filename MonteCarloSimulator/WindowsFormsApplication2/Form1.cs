@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Diagnostics;
 
 namespace WindowsFormsApplication2
 {
@@ -35,6 +36,8 @@ namespace WindowsFormsApplication2
         private void rhoOutput_TextChanged(object sender, EventArgs e) { }
         private void Antithetic_CheckedChanged(object sender, EventArgs e) { }
         private void checkBox1_CheckedChanged(object sender, EventArgs e) { }
+        private void label5_Click(object sender, EventArgs e) { }
+        private void lblTimer_Click(object sender, EventArgs e) { }
 
         private void Calculate_Click(object sender, EventArgs e)
         {
@@ -42,6 +45,7 @@ namespace WindowsFormsApplication2
             int simNumber, timeSteps, callOrPut;
             bool antithetic = Antithetic.Checked;
             bool cv = CV.Checked;
+            var watch = Stopwatch.StartNew();
 
             try
             {
@@ -96,6 +100,9 @@ namespace WindowsFormsApplication2
             Theta = (forGreeks - thetaUp) / deltaTheta;
             Rho = (rhoUp - rhoDown) / (2 * deltaR);
 
+            watch.Stop();
+
+            lblTimer.Text = watch.Elapsed.ToString();
             priceOutput.Text = Price.ToString();
             seOutput.Text = SE.ToString();
             deltaOutput.Text = Delta.ToString();
