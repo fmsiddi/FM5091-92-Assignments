@@ -11,9 +11,19 @@ using System.Diagnostics;
 
 namespace WindowsFormsApplication2
 {
+
     public partial class Form1 : Form
     {
-        public Form1() { InitializeComponent(); }
+
+        int progress = 0;
+
+        public delegate void IncrementProgress();
+        public IncrementProgress myDelegate;
+
+        public Form1()
+        {
+            InitializeComponent();
+        }
         private void Form1_Load(object sender, EventArgs e) { }
         private void label1_Click(object sender, EventArgs e) { }
         private void label2_Click(object sender, EventArgs e) { }
@@ -38,6 +48,10 @@ namespace WindowsFormsApplication2
         private void checkBox1_CheckedChanged(object sender, EventArgs e) { }
         private void label5_Click(object sender, EventArgs e) { }
         private void lblTimer_Click(object sender, EventArgs e) { }
+        private void checkBox1_CheckedChanged_1(object sender, EventArgs e) { }
+        private void coresOutput_TextChanged(object sender, EventArgs e) { }
+        private void label18_Click(object sender, EventArgs e) { }
+        private void progressBar1_Click(object sender, EventArgs e) { }
 
         private void Calculate_Click(object sender, EventArgs e)
         {
@@ -45,6 +59,7 @@ namespace WindowsFormsApplication2
             int simNumber, timeSteps, callOrPut;
             bool antithetic = Antithetic.Checked;
             bool cv = CV.Checked;
+            bool threading = MultiThreading.Checked;
             var watch = Stopwatch.StartNew();
 
             try
@@ -83,16 +98,20 @@ namespace WindowsFormsApplication2
 
             double[,] randomMatrix;
 
-            randomComponentMatrix.PolarRejection(simNumber, timeSteps, antithetic, out randomMatrix);
+            progressBar1.Maximum = 3;
 
-            Price = Calculated(s0, K, vol, r, T, simNumber, timeSteps, antithetic, cv, callOrPut, randomMatrix, out SE, out forGreeks);
-            deltaUp = Calculated(s0 + deltaS, K, vol, r, T, simNumber, timeSteps, antithetic, false, callOrPut, randomMatrix, out ignore, out ignore2);
-            deltaDown = Calculated(s0 - deltaS, K, vol, r, T, simNumber, timeSteps, antithetic, false, callOrPut, randomMatrix, out ignore, out ignore2);
-            vegaUp = Calculated(s0, K, vol + deltaVol, r, T, simNumber, timeSteps, antithetic, false, callOrPut, randomMatrix, out ignore, out ignore2);
-            vegaDown = Calculated(s0, K, vol - deltaVol, r, T, simNumber, timeSteps, antithetic, false, callOrPut, randomMatrix, out ignore, out ignore2);
-            thetaUp = Calculated(s0, K, vol, r, T + deltaTheta, simNumber, timeSteps, antithetic, false, callOrPut, randomMatrix, out ignore, out ignore2);
-            rhoUp = Calculated(s0, K, vol, r + deltaR, T, simNumber, timeSteps, antithetic, false, callOrPut, randomMatrix, out ignore, out ignore2);
-            rhoDown = Calculated(s0, K, vol, r - deltaR, T, simNumber, timeSteps, antithetic, false, callOrPut, randomMatrix, out ignore, out ignore2);
+            randomMatrix = randomComponentMatrix.PolarRejection(simNumber, timeSteps, antithetic, threading);
+
+            progressBar1.Value = 1;
+
+            Price = Calculated(s0, K, vol, r, T, simNumber, timeSteps, antithetic, cv, callOrPut, randomMatrix, threading, out SE, out forGreeks);
+            deltaUp = Calculated(s0 + deltaS, K, vol, r, T, simNumber, timeSteps, antithetic, false, callOrPut, randomMatrix, threading, out ignore, out ignore2);
+            deltaDown = Calculated(s0 - deltaS, K, vol, r, T, simNumber, timeSteps, antithetic, false, callOrPut, randomMatrix, threading, out ignore, out ignore2);
+            vegaUp = Calculated(s0, K, vol + deltaVol, r, T, simNumber, timeSteps, antithetic, false, callOrPut, randomMatrix, threading, out ignore, out ignore2);
+            vegaDown = Calculated(s0, K, vol - deltaVol, r, T, simNumber, timeSteps, antithetic, false, callOrPut, randomMatrix, threading, out ignore, out ignore2);
+            thetaUp = Calculated(s0, K, vol, r, T + deltaTheta, simNumber, timeSteps, antithetic, false, callOrPut, randomMatrix, threading, out ignore, out ignore2);
+            rhoUp = Calculated(s0, K, vol, r + deltaR, T, simNumber, timeSteps, antithetic, false, callOrPut, randomMatrix, threading, out ignore, out ignore2);
+            rhoDown = Calculated(s0, K, vol, r - deltaR, T, simNumber, timeSteps, antithetic, false, callOrPut, randomMatrix, threading, out ignore, out ignore2);
 
             Delta = (deltaUp - deltaDown) / (2 * deltaS);
             Gamma = (deltaUp - (2 * forGreeks) + deltaDown) / (deltaS * deltaS);
@@ -102,6 +121,15 @@ namespace WindowsFormsApplication2
 
             watch.Stop();
 
+            if (!threading)
+            {
+                coresOutput.Text = "1";
+            }
+            else
+            {
+                coresOutput.Text = Environment.ProcessorCount.ToString();
+            }
+            
             lblTimer.Text = watch.Elapsed.ToString();
             priceOutput.Text = Price.ToString();
             seOutput.Text = SE.ToString();
@@ -112,27 +140,38 @@ namespace WindowsFormsApplication2
             rhoOutput.Text = Rho.ToString();
         }
 
-        public double Calculated(double s0, double K, double vol, double r, double T, int simNumber, int timeSteps, bool antithetic, bool CV, int callOrPut, double[,] randomMatrix, out double SE, out double forGreeks)
+        public double Calculated(double s0, double K, double vol, double r, double T, int simNumber, int timeSteps, bool antithetic, bool CV, int callOrPut, double[,] randomMatrix, bool threading, out double SE, out double forGreeks)
         {
             if (!antithetic)
             {
                 Simulator simulation = new Simulator();
                 double[,] simulatedStockPaths;
-                simulation.PathSimulator(s0, vol, r, T, simNumber, timeSteps, randomMatrix, out simulatedStockPaths);
+                simulatedStockPaths = simulation.PathSimulator(s0, vol, r, T, simNumber, timeSteps, randomMatrix, threading);
+                progressBar1.Value = 2;
+
 
                 Pricer price = new Pricer();
-                return price.Price(K, r, T, vol, simNumber, timeSteps, callOrPut, simulatedStockPaths, CV, antithetic, out SE, out forGreeks);
+                progressBar1.Value = 3;
+                double output = price.Price(K, r, T, vol, simNumber, timeSteps, callOrPut, simulatedStockPaths, CV, antithetic, out SE, out forGreeks);
+                progressBar1.Value = 3;
+                return output;
             }
             else
             {
                 Simulator simulation = new Simulator();
                 double[,] simulatedStockPaths;
-                simulation.PathSimulator(s0, vol, r, T, 2 * simNumber, timeSteps, randomMatrix, out simulatedStockPaths);
+                simulatedStockPaths = simulation.PathSimulator(s0, vol, r, T, 2 * simNumber, timeSteps, randomMatrix, threading);
+                progressBar1.Value = 2;
 
                 Pricer price = new Pricer();
-                return price.Price(K, r, T, vol, 2 * simNumber, timeSteps, callOrPut, simulatedStockPaths, CV, antithetic, out SE, out forGreeks);
+                progressBar1.Value = 3;
+                double output = price.Price(K, r, T, vol, 2 * simNumber, timeSteps, callOrPut, simulatedStockPaths, CV, antithetic, out SE, out forGreeks);
+                progressBar1.Value = 3;
+                return output;
             }
         }
+
+        
     }
 }
 

@@ -64,6 +64,10 @@
             this.CV = new System.Windows.Forms.CheckBox();
             this.label5 = new System.Windows.Forms.Label();
             this.lblTimer = new System.Windows.Forms.Label();
+            this.MultiThreading = new System.Windows.Forms.CheckBox();
+            this.coresOutput = new System.Windows.Forms.TextBox();
+            this.label18 = new System.Windows.Forms.Label();
+            this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.SuspendLayout();
             // 
             // stockInput
@@ -391,11 +395,52 @@
             this.lblTimer.Text = "00:00:00.0";
             this.lblTimer.Click += new System.EventHandler(this.lblTimer_Click);
             // 
+            // MultiThreading
+            // 
+            this.MultiThreading.AutoSize = true;
+            this.MultiThreading.Location = new System.Drawing.Point(134, 319);
+            this.MultiThreading.Name = "MultiThreading";
+            this.MultiThreading.Size = new System.Drawing.Size(120, 17);
+            this.MultiThreading.TabIndex = 37;
+            this.MultiThreading.Text = "Use Multithreading?";
+            this.MultiThreading.UseVisualStyleBackColor = true;
+            this.MultiThreading.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged_1);
+            // 
+            // coresOutput
+            // 
+            this.coresOutput.Location = new System.Drawing.Point(424, 316);
+            this.coresOutput.Name = "coresOutput";
+            this.coresOutput.Size = new System.Drawing.Size(100, 20);
+            this.coresOutput.TabIndex = 38;
+            this.coresOutput.TextChanged += new System.EventHandler(this.coresOutput_TextChanged);
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(357, 320);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(63, 13);
+            this.label18.TabIndex = 39;
+            this.label18.Text = "Cores used:";
+            this.label18.Click += new System.EventHandler(this.label18_Click);
+            // 
+            // progressBar1
+            // 
+            this.progressBar1.Location = new System.Drawing.Point(25, 419);
+            this.progressBar1.Name = "progressBar1";
+            this.progressBar1.Size = new System.Drawing.Size(499, 23);
+            this.progressBar1.TabIndex = 40;
+            this.progressBar1.Click += new System.EventHandler(this.progressBar1_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(555, 526);
+            this.Controls.Add(this.progressBar1);
+            this.Controls.Add(this.label18);
+            this.Controls.Add(this.coresOutput);
+            this.Controls.Add(this.MultiThreading);
             this.Controls.Add(this.lblTimer);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.CV);
@@ -478,6 +523,10 @@
         private System.Windows.Forms.CheckBox CV;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label lblTimer;
+        private System.Windows.Forms.CheckBox MultiThreading;
+        private System.Windows.Forms.TextBox coresOutput;
+        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.ProgressBar progressBar1;
     }
 }
 
