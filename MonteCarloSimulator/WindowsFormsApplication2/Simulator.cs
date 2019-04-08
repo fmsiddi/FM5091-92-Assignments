@@ -44,7 +44,7 @@ namespace WindowsFormsApplication2
             else
             {
                 int cores = Environment.ProcessorCount;
-                int count = 0;
+                int startIndexForThreading = 0;
                 int simulationsForThread;
 
                 if (simNumber % cores == 0)
@@ -83,8 +83,8 @@ namespace WindowsFormsApplication2
                 for (int k = 0; k < cores; k++)
                 {
                     threadList.Add(new Thread(new ParameterizedThreadStart(FillMatrix)));
-                    threadList[k].Start(count);
-                    count += simulationsForThread;
+                    threadList[k].Start(startIndexForThreading);
+                    startIndexForThreading += simulationsForThread;
                 }
                 foreach (Thread t in threadList)
                 {

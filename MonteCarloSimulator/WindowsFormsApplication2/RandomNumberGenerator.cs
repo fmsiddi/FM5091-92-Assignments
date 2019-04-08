@@ -46,180 +46,105 @@ namespace WindowsFormsApplication2
             if (!antithetic)
             {
                 randomMatrix = new double[simulations, timeSteps];
-
-                if (!threading)
-                {
-                    for (int i = 0; i < simulations; i += 2)
-                    {
-                        for (int j = 0; j < timeSteps; j++)
-                        {
-                            do
-                            {
-                                randn1 = 2 * rnd.NextDouble() - 1;
-                                randn2 = 2 * rnd.NextDouble() - 1;
-                                w = Math.Pow(randn1, 2) + Math.Pow(randn2, 2);
-                            }
-                            while (w > 1);
-                            c = Math.Sqrt(-2 * (Math.Log(w) / w));
-                            y1 = c * randn1;
-                            y2 = c * randn2;
-
-                            randomMatrix[i, j] = y1;
-
-                            if (i + 1 < simulations)
-                            {
-                                randomMatrix[i + 1, j] = y2;
-                            }
-                        }
-                    }
-
-                    return randomMatrix;
-                }
-
-                else //if antithetic is FALSE and multithreading is TRUE
-                {
-                    int cores = Environment.ProcessorCount;
-                    int count = 0;
-                    int simulationsForThread;
-
-                    if (simulations % cores == 0)
-                    {
-                        simulationsForThread = simulations / cores;
-                    }
-                    else
-                    {
-                        simulationsForThread = simulations / cores + 1;
-                    }
-
-                    List<Thread> threadList = new List<Thread>();
-
-                    Action<object> FillMatrix = (o) =>
-                    {
-                        int start = Convert.ToInt32(o);
-                        int end = start + simulationsForThread;
-
-                        if (end > simulations)
-                        {
-                            end = simulations;
-                        }
-
-                        RandomNumberGenerator gen = new RandomNumberGenerator();
-                        for (int i = start; i < end; i++)
-                        {
-                            for (int j = 0; j < timeSteps; j++)
-                            {
-                                randomMatrix[i, j] = gen.PolarRejectionPure();
-                            }
-                        }
-                    };
-
-
-                    for (int k = 0; k < cores; k++)
-                    {
-                        threadList.Add(new Thread(new ParameterizedThreadStart(FillMatrix)));
-                        threadList[k].Start(count);
-                        count += simulationsForThread;
-                    }
-                    foreach (Thread t in threadList)
-                    {
-                        t.Join();
-                    }
-                    return randomMatrix;
-                }
             }
-
-
-
-
-
-            else //if antithetic is TRUE
+            else
             {
                 randomMatrix = new double[2 * simulations, timeSteps];
+            }
 
-                if (!threading)
+            if (!threading)
+            {
+                for (int i = 0; i < simulations; i += 2)
                 {
-                    for (int i = 0; i < simulations; i += 2)
+                    for (int j = 0; j < timeSteps; j++)
                     {
-                        for (int j = 0; j < timeSteps; j++)
+                        do
                         {
-                            do
-                            {
-                                randn1 = 2 * rnd.NextDouble() - 1;
-                                randn2 = 2 * rnd.NextDouble() - 1;
-                                w = Math.Pow(randn1, 2) + Math.Pow(randn2, 2);
-                            }
-                            while (w > 1);
-                            c = Math.Sqrt(-2 * (Math.Log(w) / w));
-                            y1 = c * randn1;
-                            y2 = c * randn2;
-                            //double z1 = y1;
-                            //double z2 = (cor * y1) + (Math.Sqrt(1 - (Math.Pow(cor, 2))) * y2);
+                            randn1 = 2 * rnd.NextDouble() - 1;
+                            randn2 = 2 * rnd.NextDouble() - 1;
+                            w = Math.Pow(randn1, 2) + Math.Pow(randn2, 2);
+                        }
+                        while (w > 1);
+                        c = Math.Sqrt(-2 * (Math.Log(w) / w));
+                        y1 = c * randn1;
+                        y2 = c * randn2;
 
-                            randomMatrix[i, j] = y1;
+                        randomMatrix[i, j] = y1;
+
+                        if (i + 1 < simulations)
+                        {
+                            randomMatrix[i + 1, j] = y2;
+                        }
+
+                        if (antithetic)
+                        {
                             randomMatrix[i + simulations, j] = -y1;
 
                             if (i + 1 < simulations)
                             {
-                                randomMatrix[i + 1, j] = y2;
                                 randomMatrix[i + 1 + simulations, j] = -y2;
                             }
                         }
                     }
-
-                    return randomMatrix;
                 }
 
-                else //if antithreading is TRUE and multithreading is TRUE
+                return randomMatrix;
+            }
+
+            else //if multithreading is TRUE
+            {
+                int cores = Environment.ProcessorCount;
+                int startIndexForThreading = 0;
+                int simulationsForThread;
+
+                if (simulations % cores == 0)
                 {
-                    int cores = Environment.ProcessorCount;
-                    int count = 0;
-                    int simulationsForThread;
+                    simulationsForThread = simulations / cores;
+                }
+                else
+                {
+                    simulationsForThread = simulations / cores + 1;
+                }
 
-                    if (simulations % cores == 0)
+                List<Thread> threadList = new List<Thread>();
+
+                Action<object> FillMatrix = (o) =>
+                {
+                    int start = Convert.ToInt32(o);
+                    int end = start + simulationsForThread;
+
+                    if (end > simulations)
                     {
-                        simulationsForThread = simulations / cores;
+                        end = simulations;
                     }
-                    else
+
+                    RandomNumberGenerator gen = new RandomNumberGenerator();
+                    for (int i = start; i < end; i++)
                     {
-                        simulationsForThread = simulations / cores + 1;
-                    }
-
-                    List<Thread> threadList = new List<Thread>();
-
-                    Action<object> FillMatrix = (o) =>
-                    {
-                        int start = Convert.ToInt32(o);
-                        int end = start + simulationsForThread;
-
-                        if (end > simulations)
+                        for (int j = 0; j < timeSteps; j++)
                         {
-                            end = simulations;
-                        }
-
-                        RandomNumberGenerator gen = new RandomNumberGenerator();
-                        for (int i = start; i < end; i++)
-                        {
-                            for (int j = 0; j < timeSteps; j++)
+                            double entry = gen.PolarRejectionPure();
+                            randomMatrix[i, j] = entry;
+                            if (antithetic)
                             {
-                                double entry = gen.PolarRejectionPure();
-                                randomMatrix[i, j] = entry;
                                 randomMatrix[i + simulations, j] = -entry;
                             }
                         }
-                    };
+                    }
+                };
 
-                    for (int k = 0; k < cores; k++)
+
+                for (int k = 0; k < cores; k++)
                     {
                         threadList.Add(new Thread(new ParameterizedThreadStart(FillMatrix)));
-                        threadList[k].Start(count);
-                        count += simulationsForThread;
+                        threadList[k].Start(startIndexForThreading);
+                        startIndexForThreading += simulationsForThread;
                     }
-                    foreach (Thread t in threadList)
-                    {
-                        t.Join();
-                    }
-                    return randomMatrix;
+                foreach (Thread t in threadList)
+                {
+                    t.Join();
                 }
+                return randomMatrix;
             }
         }
     }
