@@ -92,32 +92,41 @@ namespace WindowsFormsApplication2
             double deltaR = 0.001 * r;
             double deltaTheta = 0.001 * T;
 
-            double Price, SE, forGreeks, ignore, ignore2, deltaUp, deltaDown, vegaUp, vegaDown, thetaUp, rhoUp, rhoDown, Delta, Gamma, Vega, Theta, Rho;  
+            double Price, deltaUp, deltaDown, vegaUp, vegaDown, thetaUp, rhoUp, rhoDown, Delta, Gamma, Vega, Theta, Rho;  
 
             RandomNumberGenerator randomComponentMatrix = new RandomNumberGenerator();
 
             double[,] randomMatrix;
 
-            progressBar1.Maximum = 3;
+            progressBar1.Maximum = 10;
 
             randomMatrix = randomComponentMatrix.PolarRejection(simNumber, timeSteps, antithetic, threading);
 
             progressBar1.Value = 1;
 
-            Price = Calculated(s0, K, vol, r, T, simNumber, timeSteps, antithetic, cv, callOrPut, randomMatrix, threading, out SE, out forGreeks);
-            deltaUp = Calculated(s0 + deltaS, K, vol, r, T, simNumber, timeSteps, antithetic, false, callOrPut, randomMatrix, threading, out ignore, out ignore2);
+            Price = Calculated(s0, K, vol, r, T, simNumber, timeSteps, antithetic, cv, callOrPut, randomMatrix, threading, out double SE, out double forGreeks);
+            progressBar1.Value = 2;
+            deltaUp = Calculated(s0 + deltaS, K, vol, r, T, simNumber, timeSteps, antithetic, false, callOrPut, randomMatrix, threading, out double ignore, out double ignore2);
+            progressBar1.Value = 3;
             deltaDown = Calculated(s0 - deltaS, K, vol, r, T, simNumber, timeSteps, antithetic, false, callOrPut, randomMatrix, threading, out ignore, out ignore2);
+            progressBar1.Value = 4;
             vegaUp = Calculated(s0, K, vol + deltaVol, r, T, simNumber, timeSteps, antithetic, false, callOrPut, randomMatrix, threading, out ignore, out ignore2);
+            progressBar1.Value = 5;
             vegaDown = Calculated(s0, K, vol - deltaVol, r, T, simNumber, timeSteps, antithetic, false, callOrPut, randomMatrix, threading, out ignore, out ignore2);
+            progressBar1.Value = 6;
             thetaUp = Calculated(s0, K, vol, r, T + deltaTheta, simNumber, timeSteps, antithetic, false, callOrPut, randomMatrix, threading, out ignore, out ignore2);
+            progressBar1.Value = 7;
             rhoUp = Calculated(s0, K, vol, r + deltaR, T, simNumber, timeSteps, antithetic, false, callOrPut, randomMatrix, threading, out ignore, out ignore2);
+            progressBar1.Value = 8;
             rhoDown = Calculated(s0, K, vol, r - deltaR, T, simNumber, timeSteps, antithetic, false, callOrPut, randomMatrix, threading, out ignore, out ignore2);
+            progressBar1.Value = 9;
 
             Delta = (deltaUp - deltaDown) / (2 * deltaS);
             Gamma = (deltaUp - (2 * forGreeks) + deltaDown) / (deltaS * deltaS);
             Vega = (vegaUp - vegaDown) / (2 * deltaVol);
             Theta = (forGreeks - thetaUp) / deltaTheta;
             Rho = (rhoUp - rhoDown) / (2 * deltaR);
+            progressBar1.Value = 10;
 
             watch.Stop();
 
@@ -147,13 +156,9 @@ namespace WindowsFormsApplication2
                 Simulator simulation = new Simulator();
                 double[,] simulatedStockPaths;
                 simulatedStockPaths = simulation.PathSimulator(s0, vol, r, T, simNumber, timeSteps, randomMatrix, threading);
-                progressBar1.Value = 2;
-
 
                 Pricer price = new Pricer();
-                progressBar1.Value = 3;
                 double output = price.Price(K, r, T, vol, simNumber, timeSteps, callOrPut, simulatedStockPaths, CV, antithetic, out SE, out forGreeks);
-                progressBar1.Value = 3;
                 return output;
             }
             else
@@ -161,12 +166,9 @@ namespace WindowsFormsApplication2
                 Simulator simulation = new Simulator();
                 double[,] simulatedStockPaths;
                 simulatedStockPaths = simulation.PathSimulator(s0, vol, r, T, 2 * simNumber, timeSteps, randomMatrix, threading);
-                progressBar1.Value = 2;
 
                 Pricer price = new Pricer();
-                progressBar1.Value = 3;
                 double output = price.Price(K, r, T, vol, 2 * simNumber, timeSteps, callOrPut, simulatedStockPaths, CV, antithetic, out SE, out forGreeks);
-                progressBar1.Value = 3;
                 return output;
             }
         }
