@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.stockInput = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.strikeInput = new System.Windows.Forms.TextBox();
@@ -43,7 +44,6 @@
             this.simulationTimeStep = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
             this.priceOutput = new System.Windows.Forms.TextBox();
             this.seOutput = new System.Windows.Forms.TextBox();
             this.deltaOutput = new System.Windows.Forms.TextBox();
@@ -69,12 +69,27 @@
             this.CallIndicator = new System.Windows.Forms.RadioButton();
             this.PutIndicator = new System.Windows.Forms.RadioButton();
             this.CallOrPutGroupBox = new System.Windows.Forms.GroupBox();
+            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
+            this.TypeGroupBox = new System.Windows.Forms.GroupBox();
+            this.RangeIndicator = new System.Windows.Forms.RadioButton();
+            this.LookbackIndicator = new System.Windows.Forms.RadioButton();
+            this.DigitalIndicator = new System.Windows.Forms.RadioButton();
+            this.AsianIndicator = new System.Windows.Forms.RadioButton();
+            this.EuroIndicator = new System.Windows.Forms.RadioButton();
+            this.BarrierIndicator = new System.Windows.Forms.RadioButton();
+            this.BarrierType = new System.Windows.Forms.ComboBox();
+            this.RebateInput = new System.Windows.Forms.TextBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.BarrierInput = new System.Windows.Forms.TextBox();
+            this.label19 = new System.Windows.Forms.Label();
             this.CallOrPutGroupBox.SuspendLayout();
+            this.TypeGroupBox.SuspendLayout();
             this.SuspendLayout();
             // 
             // stockInput
             // 
-            this.stockInput.Location = new System.Drawing.Point(134, 66);
+            this.stockInput.Location = new System.Drawing.Point(146, 66);
             this.stockInput.Name = "stockInput";
             this.stockInput.Size = new System.Drawing.Size(100, 20);
             this.stockInput.TabIndex = 0;
@@ -84,7 +99,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(36, 69);
+            this.label1.Location = new System.Drawing.Point(48, 69);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(89, 13);
             this.label1.TabIndex = 1;
@@ -93,7 +108,7 @@
             // 
             // strikeInput
             // 
-            this.strikeInput.Location = new System.Drawing.Point(134, 92);
+            this.strikeInput.Location = new System.Drawing.Point(146, 92);
             this.strikeInput.Name = "strikeInput";
             this.strikeInput.Size = new System.Drawing.Size(100, 20);
             this.strikeInput.TabIndex = 2;
@@ -102,7 +117,7 @@
             // 
             // volInput
             // 
-            this.volInput.Location = new System.Drawing.Point(134, 118);
+            this.volInput.Location = new System.Drawing.Point(146, 118);
             this.volInput.Name = "volInput";
             this.volInput.Size = new System.Drawing.Size(100, 20);
             this.volInput.TabIndex = 3;
@@ -111,7 +126,7 @@
             // 
             // IRInput
             // 
-            this.IRInput.Location = new System.Drawing.Point(134, 144);
+            this.IRInput.Location = new System.Drawing.Point(146, 144);
             this.IRInput.Name = "IRInput";
             this.IRInput.Size = new System.Drawing.Size(100, 20);
             this.IRInput.TabIndex = 4;
@@ -120,7 +135,7 @@
             // 
             // timeInput
             // 
-            this.timeInput.Location = new System.Drawing.Point(134, 169);
+            this.timeInput.Location = new System.Drawing.Point(146, 169);
             this.timeInput.Name = "timeInput";
             this.timeInput.Size = new System.Drawing.Size(100, 20);
             this.timeInput.TabIndex = 6;
@@ -130,7 +145,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(64, 95);
+            this.label2.Location = new System.Drawing.Point(76, 95);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(61, 13);
             this.label2.TabIndex = 7;
@@ -140,7 +155,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(80, 121);
+            this.label3.Location = new System.Drawing.Point(92, 121);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(45, 13);
             this.label3.TabIndex = 8;
@@ -149,7 +164,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(57, 147);
+            this.label4.Location = new System.Drawing.Point(69, 147);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(68, 13);
             this.label4.TabIndex = 9;
@@ -158,7 +173,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(39, 172);
+            this.label6.Location = new System.Drawing.Point(51, 172);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(86, 13);
             this.label6.TabIndex = 11;
@@ -166,7 +181,7 @@
             // 
             // Calculate
             // 
-            this.Calculate.Location = new System.Drawing.Point(235, 482);
+            this.Calculate.Location = new System.Drawing.Point(235, 608);
             this.Calculate.Name = "Calculate";
             this.Calculate.Size = new System.Drawing.Size(75, 23);
             this.Calculate.TabIndex = 12;
@@ -176,7 +191,7 @@
             // 
             // numberOfSimulations
             // 
-            this.numberOfSimulations.Location = new System.Drawing.Point(134, 195);
+            this.numberOfSimulations.Location = new System.Drawing.Point(146, 195);
             this.numberOfSimulations.Name = "numberOfSimulations";
             this.numberOfSimulations.Size = new System.Drawing.Size(100, 20);
             this.numberOfSimulations.TabIndex = 13;
@@ -185,7 +200,7 @@
             // 
             // simulationTimeStep
             // 
-            this.simulationTimeStep.Location = new System.Drawing.Point(134, 221);
+            this.simulationTimeStep.Location = new System.Drawing.Point(146, 221);
             this.simulationTimeStep.Name = "simulationTimeStep";
             this.simulationTimeStep.Size = new System.Drawing.Size(100, 20);
             this.simulationTimeStep.TabIndex = 14;
@@ -195,7 +210,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(13, 198);
+            this.label7.Location = new System.Drawing.Point(25, 198);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(112, 13);
             this.label7.TabIndex = 15;
@@ -205,18 +220,11 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(-1, 224);
+            this.label8.Location = new System.Drawing.Point(11, 224);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(126, 13);
             this.label8.TabIndex = 16;
             this.label8.Text = "Time Step for Simulations";
-            // 
-            // label9
-            // 
-            this.label9.Location = new System.Drawing.Point(0, 0);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(100, 23);
-            this.label9.TabIndex = 0;
             // 
             // priceOutput
             // 
@@ -340,7 +348,7 @@
             // Antithetic
             // 
             this.Antithetic.AutoSize = true;
-            this.Antithetic.Location = new System.Drawing.Point(134, 339);
+            this.Antithetic.Location = new System.Drawing.Point(326, 300);
             this.Antithetic.Name = "Antithetic";
             this.Antithetic.Size = new System.Drawing.Size(173, 17);
             this.Antithetic.TabIndex = 33;
@@ -351,7 +359,7 @@
             // CV
             // 
             this.CV.AutoSize = true;
-            this.CV.Location = new System.Drawing.Point(134, 362);
+            this.CV.Location = new System.Drawing.Point(326, 323);
             this.CV.Name = "CV";
             this.CV.Size = new System.Drawing.Size(165, 17);
             this.CV.TabIndex = 34;
@@ -382,7 +390,7 @@
             // MultiThreading
             // 
             this.MultiThreading.AutoSize = true;
-            this.MultiThreading.Location = new System.Drawing.Point(134, 385);
+            this.MultiThreading.Location = new System.Drawing.Point(326, 346);
             this.MultiThreading.Name = "MultiThreading";
             this.MultiThreading.Size = new System.Drawing.Size(120, 17);
             this.MultiThreading.TabIndex = 37;
@@ -392,7 +400,7 @@
             // 
             // coresOutput
             // 
-            this.coresOutput.Location = new System.Drawing.Point(424, 316);
+            this.coresOutput.Location = new System.Drawing.Point(414, 369);
             this.coresOutput.Name = "coresOutput";
             this.coresOutput.Size = new System.Drawing.Size(100, 20);
             this.coresOutput.TabIndex = 38;
@@ -401,7 +409,7 @@
             // label18
             // 
             this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(357, 320);
+            this.label18.Location = new System.Drawing.Point(347, 373);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(63, 13);
             this.label18.TabIndex = 39;
@@ -410,7 +418,7 @@
             // 
             // progressBar1
             // 
-            this.progressBar1.Location = new System.Drawing.Point(25, 419);
+            this.progressBar1.Location = new System.Drawing.Point(25, 545);
             this.progressBar1.Name = "progressBar1";
             this.progressBar1.Size = new System.Drawing.Size(499, 23);
             this.progressBar1.TabIndex = 40;
@@ -446,7 +454,7 @@
             // 
             this.CallOrPutGroupBox.Controls.Add(this.CallIndicator);
             this.CallOrPutGroupBox.Controls.Add(this.PutIndicator);
-            this.CallOrPutGroupBox.Location = new System.Drawing.Point(127, 17);
+            this.CallOrPutGroupBox.Location = new System.Drawing.Point(116, 17);
             this.CallOrPutGroupBox.Name = "CallOrPutGroupBox";
             this.CallOrPutGroupBox.Size = new System.Drawing.Size(107, 44);
             this.CallOrPutGroupBox.TabIndex = 43;
@@ -454,12 +462,174 @@
             this.CallOrPutGroupBox.Text = "Call or Put";
             this.CallOrPutGroupBox.Enter += new System.EventHandler(this.CallOrPutGroupBox_Enter);
             // 
+            // imageList1
+            // 
+            this.imageList1.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit;
+            this.imageList1.ImageSize = new System.Drawing.Size(16, 16);
+            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
+            // 
+            // TypeGroupBox
+            // 
+            this.TypeGroupBox.Controls.Add(this.label19);
+            this.TypeGroupBox.Controls.Add(this.BarrierInput);
+            this.TypeGroupBox.Controls.Add(this.label10);
+            this.TypeGroupBox.Controls.Add(this.label9);
+            this.TypeGroupBox.Controls.Add(this.RebateInput);
+            this.TypeGroupBox.Controls.Add(this.BarrierType);
+            this.TypeGroupBox.Controls.Add(this.CallOrPutGroupBox);
+            this.TypeGroupBox.Controls.Add(this.RangeIndicator);
+            this.TypeGroupBox.Controls.Add(this.LookbackIndicator);
+            this.TypeGroupBox.Controls.Add(this.BarrierIndicator);
+            this.TypeGroupBox.Controls.Add(this.DigitalIndicator);
+            this.TypeGroupBox.Controls.Add(this.AsianIndicator);
+            this.TypeGroupBox.Controls.Add(this.EuroIndicator);
+            this.TypeGroupBox.Location = new System.Drawing.Point(10, 257);
+            this.TypeGroupBox.Name = "TypeGroupBox";
+            this.TypeGroupBox.Size = new System.Drawing.Size(256, 210);
+            this.TypeGroupBox.TabIndex = 44;
+            this.TypeGroupBox.TabStop = false;
+            this.TypeGroupBox.Text = "Type";
+            this.TypeGroupBox.Enter += new System.EventHandler(this.TypeGroupBox_Enter);
+            // 
+            // RangeIndicator
+            // 
+            this.RangeIndicator.AutoSize = true;
+            this.RangeIndicator.Location = new System.Drawing.Point(21, 88);
+            this.RangeIndicator.Name = "RangeIndicator";
+            this.RangeIndicator.Size = new System.Drawing.Size(57, 17);
+            this.RangeIndicator.TabIndex = 4;
+            this.RangeIndicator.Text = "Range";
+            this.RangeIndicator.UseVisualStyleBackColor = true;
+            this.RangeIndicator.CheckedChanged += new System.EventHandler(this.RangeIndicator_CheckedChanged);
+            // 
+            // LookbackIndicator
+            // 
+            this.LookbackIndicator.AutoSize = true;
+            this.LookbackIndicator.Location = new System.Drawing.Point(21, 65);
+            this.LookbackIndicator.Name = "LookbackIndicator";
+            this.LookbackIndicator.Size = new System.Drawing.Size(73, 17);
+            this.LookbackIndicator.TabIndex = 3;
+            this.LookbackIndicator.Text = "Lookback";
+            this.LookbackIndicator.UseVisualStyleBackColor = true;
+            this.LookbackIndicator.CheckedChanged += new System.EventHandler(this.LookbackIndicator_CheckedChanged);
+            // 
+            // DigitalIndicator
+            // 
+            this.DigitalIndicator.AutoSize = true;
+            this.DigitalIndicator.Location = new System.Drawing.Point(21, 112);
+            this.DigitalIndicator.Name = "DigitalIndicator";
+            this.DigitalIndicator.Size = new System.Drawing.Size(54, 17);
+            this.DigitalIndicator.TabIndex = 2;
+            this.DigitalIndicator.Text = "Digital";
+            this.DigitalIndicator.UseVisualStyleBackColor = true;
+            this.DigitalIndicator.CheckedChanged += new System.EventHandler(this.DigitalIndicator_CheckedChanged);
+            // 
+            // AsianIndicator
+            // 
+            this.AsianIndicator.AutoSize = true;
+            this.AsianIndicator.Location = new System.Drawing.Point(21, 42);
+            this.AsianIndicator.Name = "AsianIndicator";
+            this.AsianIndicator.Size = new System.Drawing.Size(51, 17);
+            this.AsianIndicator.TabIndex = 1;
+            this.AsianIndicator.Text = "Asian";
+            this.AsianIndicator.UseVisualStyleBackColor = true;
+            this.AsianIndicator.CheckedChanged += new System.EventHandler(this.AsianIndicator_CheckedChanged);
+            // 
+            // EuroIndicator
+            // 
+            this.EuroIndicator.AutoSize = true;
+            this.EuroIndicator.Checked = true;
+            this.EuroIndicator.Location = new System.Drawing.Point(21, 19);
+            this.EuroIndicator.Name = "EuroIndicator";
+            this.EuroIndicator.Size = new System.Drawing.Size(71, 17);
+            this.EuroIndicator.TabIndex = 0;
+            this.EuroIndicator.TabStop = true;
+            this.EuroIndicator.Text = "European";
+            this.EuroIndicator.UseVisualStyleBackColor = true;
+            this.EuroIndicator.CheckedChanged += new System.EventHandler(this.EuroIndicator_CheckedChanged);
+            // 
+            // BarrierIndicator
+            // 
+            this.BarrierIndicator.AutoSize = true;
+            this.BarrierIndicator.Location = new System.Drawing.Point(21, 148);
+            this.BarrierIndicator.Name = "BarrierIndicator";
+            this.BarrierIndicator.Size = new System.Drawing.Size(55, 17);
+            this.BarrierIndicator.TabIndex = 0;
+            this.BarrierIndicator.TabStop = true;
+            this.BarrierIndicator.Text = "Barrier";
+            this.BarrierIndicator.UseVisualStyleBackColor = true;
+            this.BarrierIndicator.CheckedChanged += new System.EventHandler(this.UpInIndicator_CheckedChanged);
+            // 
+            // BarrierType
+            // 
+            this.BarrierType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.BarrierType.Enabled = false;
+            this.BarrierType.FormattingEnabled = true;
+            this.BarrierType.Items.AddRange(new object[] {
+            "Up and In",
+            "Up and Out",
+            "Down and In",
+            "Down and Out"});
+            this.BarrierType.Location = new System.Drawing.Point(136, 147);
+            this.BarrierType.Name = "BarrierType";
+            this.BarrierType.Size = new System.Drawing.Size(84, 21);
+            this.BarrierType.TabIndex = 5;
+            this.BarrierType.SelectedIndexChanged += new System.EventHandler(this.ComboBox1_SelectedIndexChanged);
+            // 
+            // RebateInput
+            // 
+            this.RebateInput.Enabled = false;
+            this.RebateInput.Location = new System.Drawing.Point(136, 111);
+            this.RebateInput.Name = "RebateInput";
+            this.RebateInput.Size = new System.Drawing.Size(47, 20);
+            this.RebateInput.TabIndex = 44;
+            this.RebateInput.TextChanged += new System.EventHandler(this.TextBox1_TextChanged);
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(85, 114);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(45, 13);
+            this.label9.TabIndex = 45;
+            this.label9.Text = "Rebate:";
+            this.label9.Click += new System.EventHandler(this.Label9_Click);
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(85, 150);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(34, 13);
+            this.label10.TabIndex = 46;
+            this.label10.Text = "Type:";
+            this.label10.Click += new System.EventHandler(this.Label10_Click);
+            // 
+            // BarrierInput
+            // 
+            this.BarrierInput.Enabled = false;
+            this.BarrierInput.Location = new System.Drawing.Point(136, 171);
+            this.BarrierInput.Name = "BarrierInput";
+            this.BarrierInput.Size = new System.Drawing.Size(47, 20);
+            this.BarrierInput.TabIndex = 47;
+            this.BarrierInput.TextChanged += new System.EventHandler(this.BarrierInput_TextChanged);
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Location = new System.Drawing.Point(85, 174);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(40, 13);
+            this.label19.TabIndex = 48;
+            this.label19.Text = "Barrier:";
+            this.label19.Click += new System.EventHandler(this.Label19_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(555, 526);
-            this.Controls.Add(this.CallOrPutGroupBox);
+            this.ClientSize = new System.Drawing.Size(555, 719);
+            this.Controls.Add(this.TypeGroupBox);
             this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.label18);
             this.Controls.Add(this.coresOutput);
@@ -482,7 +652,6 @@
             this.Controls.Add(this.deltaOutput);
             this.Controls.Add(this.seOutput);
             this.Controls.Add(this.priceOutput);
-            this.Controls.Add(this.label9);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.simulationTimeStep);
@@ -503,6 +672,8 @@
             this.Load += new System.EventHandler(this.Form1_Load);
             this.CallOrPutGroupBox.ResumeLayout(false);
             this.CallOrPutGroupBox.PerformLayout();
+            this.TypeGroupBox.ResumeLayout(false);
+            this.TypeGroupBox.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -525,7 +696,6 @@
         private System.Windows.Forms.TextBox simulationTimeStep;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.Label label9;
         private System.Windows.Forms.TextBox priceOutput;
         private System.Windows.Forms.TextBox seOutput;
         private System.Windows.Forms.TextBox deltaOutput;
@@ -551,6 +721,20 @@
         private System.Windows.Forms.RadioButton CallIndicator;
         private System.Windows.Forms.RadioButton PutIndicator;
         private System.Windows.Forms.GroupBox CallOrPutGroupBox;
+        private System.Windows.Forms.ImageList imageList1;
+        private System.Windows.Forms.GroupBox TypeGroupBox;
+        private System.Windows.Forms.RadioButton RangeIndicator;
+        private System.Windows.Forms.RadioButton LookbackIndicator;
+        private System.Windows.Forms.RadioButton DigitalIndicator;
+        private System.Windows.Forms.RadioButton AsianIndicator;
+        private System.Windows.Forms.RadioButton EuroIndicator;
+        private System.Windows.Forms.ComboBox BarrierType;
+        private System.Windows.Forms.RadioButton BarrierIndicator;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.TextBox RebateInput;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.TextBox BarrierInput;
+        private System.Windows.Forms.Label label19;
     }
 }
 

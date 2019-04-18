@@ -55,16 +55,39 @@ namespace WindowsFormsApplication2
         private void CallOrPutGroupBox_Enter(object sender, EventArgs e) { }
         private void RadioButton1_CheckedChanged(object sender, EventArgs e) { }
         private void PutIndicator_CheckedChanged(object sender, EventArgs e) { }
+        private void TypeGroupBox_Enter(object sender, EventArgs e) { }
+        private void EuroIndicator_CheckedChanged(object sender, EventArgs e) { }
+        private void AsianIndicator_CheckedChanged(object sender, EventArgs e) { }
+        private void DigitalIndicator_CheckedChanged(object sender, EventArgs e)
+        {
+            RebateInput.Enabled = DigitalIndicator.Checked;
+        }
+        private void LookbackIndicator_CheckedChanged(object sender, EventArgs e) { }
+        private void RangeIndicator_CheckedChanged(object sender, EventArgs e) { }
+        private void UpInIndicator_CheckedChanged(object sender, EventArgs e)
+        {
+            BarrierType.Enabled = BarrierIndicator.Checked;
+            BarrierInput.Enabled = BarrierIndicator.Checked;
+        }
+        private void ComboBox1_SelectedIndexChanged(object sender, EventArgs e) { }
+        private void Label9_Click(object sender, EventArgs e) { }
+        private void TextBox1_TextChanged(object sender, EventArgs e) { }
+        private void Label10_Click(object sender, EventArgs e) { }
+        private void BarrierInput_TextChanged(object sender, EventArgs e) { }
+        private void Label19_Click(object sender, EventArgs e) { }
+
+
 
         private void Calculate_Click(object sender, EventArgs e)
         {
-            double s0, K, vol, r, T;
+            double s0, K, vol, r, T; 
+            double? digitalRebate, barrier;
             int simNumber, timeSteps;
             bool antithetic = Antithetic.Checked;
             bool cv = CV.Checked;
             bool threading = MultiThreading.Checked;
             bool callOrPut = CallIndicator.Checked;
-            bool putIndicator = PutIndicator.Checked;
+            string barrierType = BarrierType.Text;
             var watch = Stopwatch.StartNew();
 
             try
@@ -87,8 +110,33 @@ namespace WindowsFormsApplication2
             vol = Convert.ToDouble(volInput.Text);
             r = Convert.ToDouble(IRInput.Text);
             T = Convert.ToDouble(timeInput.Text);
+            if (RebateInput.Text != "")
+            {
+                try
+                {
+                    digitalRebate = Double.Parse(RebateInput.Text);
+                }
+                catch (Exception xc)
+                {
+                    MessageBox.Show(xc.Message);
+                }
+                digitalRebate = Convert.ToDouble(RebateInput.Text);
+            }
+            if (BarrierInput.Text != "")
+            {
+                try
+                {
+                    barrier = Double.Parse(BarrierInput.Text);
+                }
+                catch (Exception xc)
+                {
+                    MessageBox.Show(xc.Message);
+                }
+                barrier = Convert.ToDouble(RebateInput.Text);
+            }
             simNumber = Convert.ToInt32(numberOfSimulations.Text);
             timeSteps = Convert.ToInt32(simulationTimeStep.Text);
+            
 
             double deltaVol = 0.001 * vol;
             double deltaS = 0.001 * s0;
