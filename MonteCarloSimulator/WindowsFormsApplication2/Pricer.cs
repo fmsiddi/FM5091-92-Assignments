@@ -8,14 +8,14 @@ namespace WindowsFormsApplication2
 {
     class Pricer
     {
-        public double Price(double K, double r, double T, double vol, int simNumber, int timeSteps, int callOrPut, double[,] simulatedStockPaths, bool CV, bool antithetic, out double SE, out double forGreeks)
+        public double Price(double K, double r, double T, double vol, int simNumber, int timeSteps, bool callOrPut, double[,] simulatedStockPaths, bool CV, bool antithetic, out double SE, out double forGreeks)
         {
             double p;
             double CT;
             double sum = 0;
             double sum2 = 0;
             double forGreeksSum = 0;
-            double SD = 0;
+            double SD;
             double sumForSD = 0;
             double[] terminalPayoffVector;
             double[] discountedPayoffVector;
@@ -25,17 +25,13 @@ namespace WindowsFormsApplication2
 
             for (int i = 0; i < simNumber; i++)
             {
-                if (callOrPut == 1)
+                if (callOrPut)
                 {
                     terminalPayoffVector[i] = Math.Max(simulatedStockPaths[i, timeSteps - 1] - K, 0);
                 }
-                else if (callOrPut == 0)
-                {
-                    terminalPayoffVector[i] = Math.Max(K - simulatedStockPaths[i, timeSteps - 1], 0);
-                }
                 else
                 {
-                    throw new System.ArgumentException("You must type 1 for Call or 0 for Put.");
+                    terminalPayoffVector[i] = Math.Max(K - simulatedStockPaths[i, timeSteps - 1], 0);
                 }
             }
 

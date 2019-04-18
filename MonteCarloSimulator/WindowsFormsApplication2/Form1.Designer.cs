@@ -43,9 +43,7 @@
             this.simulationTimeStep = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
-            this.callOrPutInput = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
-            this.label10 = new System.Windows.Forms.Label();
             this.priceOutput = new System.Windows.Forms.TextBox();
             this.seOutput = new System.Windows.Forms.TextBox();
             this.deltaOutput = new System.Windows.Forms.TextBox();
@@ -68,6 +66,10 @@
             this.coresOutput = new System.Windows.Forms.TextBox();
             this.label18 = new System.Windows.Forms.Label();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
+            this.CallIndicator = new System.Windows.Forms.RadioButton();
+            this.PutIndicator = new System.Windows.Forms.RadioButton();
+            this.CallOrPutGroupBox = new System.Windows.Forms.GroupBox();
+            this.CallOrPutGroupBox.SuspendLayout();
             this.SuspendLayout();
             // 
             // stockInput
@@ -209,30 +211,12 @@
             this.label8.TabIndex = 16;
             this.label8.Text = "Time Step for Simulations";
             // 
-            // callOrPutInput
-            // 
-            this.callOrPutInput.Location = new System.Drawing.Point(134, 247);
-            this.callOrPutInput.Name = "callOrPutInput";
-            this.callOrPutInput.Size = new System.Drawing.Size(100, 20);
-            this.callOrPutInput.TabIndex = 17;
-            this.callOrPutInput.Text = "1";
-            this.callOrPutInput.TextChanged += new System.EventHandler(this.callOrPut_TextChanged);
-            // 
             // label9
             // 
             this.label9.Location = new System.Drawing.Point(0, 0);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(100, 23);
             this.label9.TabIndex = 0;
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(43, 250);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(82, 13);
-            this.label10.TabIndex = 18;
-            this.label10.Text = "Call = 1; Put = 0";
             // 
             // priceOutput
             // 
@@ -356,7 +340,7 @@
             // Antithetic
             // 
             this.Antithetic.AutoSize = true;
-            this.Antithetic.Location = new System.Drawing.Point(134, 273);
+            this.Antithetic.Location = new System.Drawing.Point(134, 339);
             this.Antithetic.Name = "Antithetic";
             this.Antithetic.Size = new System.Drawing.Size(173, 17);
             this.Antithetic.TabIndex = 33;
@@ -367,7 +351,7 @@
             // CV
             // 
             this.CV.AutoSize = true;
-            this.CV.Location = new System.Drawing.Point(134, 296);
+            this.CV.Location = new System.Drawing.Point(134, 362);
             this.CV.Name = "CV";
             this.CV.Size = new System.Drawing.Size(165, 17);
             this.CV.TabIndex = 34;
@@ -398,7 +382,7 @@
             // MultiThreading
             // 
             this.MultiThreading.AutoSize = true;
-            this.MultiThreading.Location = new System.Drawing.Point(134, 319);
+            this.MultiThreading.Location = new System.Drawing.Point(134, 385);
             this.MultiThreading.Name = "MultiThreading";
             this.MultiThreading.Size = new System.Drawing.Size(120, 17);
             this.MultiThreading.TabIndex = 37;
@@ -432,11 +416,50 @@
             this.progressBar1.TabIndex = 40;
             this.progressBar1.Click += new System.EventHandler(this.progressBar1_Click);
             // 
+            // CallIndicator
+            // 
+            this.CallIndicator.AutoSize = true;
+            this.CallIndicator.Checked = true;
+            this.CallIndicator.Location = new System.Drawing.Point(6, 19);
+            this.CallIndicator.Name = "CallIndicator";
+            this.CallIndicator.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.CallIndicator.Size = new System.Drawing.Size(42, 17);
+            this.CallIndicator.TabIndex = 41;
+            this.CallIndicator.TabStop = true;
+            this.CallIndicator.Text = "Call";
+            this.CallIndicator.UseVisualStyleBackColor = true;
+            this.CallIndicator.CheckedChanged += new System.EventHandler(this.RadioButton1_CheckedChanged);
+            // 
+            // PutIndicator
+            // 
+            this.PutIndicator.AutoSize = true;
+            this.PutIndicator.Location = new System.Drawing.Point(54, 19);
+            this.PutIndicator.Name = "PutIndicator";
+            this.PutIndicator.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.PutIndicator.Size = new System.Drawing.Size(41, 17);
+            this.PutIndicator.TabIndex = 42;
+            this.PutIndicator.Text = "Put";
+            this.PutIndicator.UseVisualStyleBackColor = true;
+            this.PutIndicator.CheckedChanged += new System.EventHandler(this.PutIndicator_CheckedChanged);
+            // 
+            // CallOrPutGroupBox
+            // 
+            this.CallOrPutGroupBox.Controls.Add(this.CallIndicator);
+            this.CallOrPutGroupBox.Controls.Add(this.PutIndicator);
+            this.CallOrPutGroupBox.Location = new System.Drawing.Point(127, 17);
+            this.CallOrPutGroupBox.Name = "CallOrPutGroupBox";
+            this.CallOrPutGroupBox.Size = new System.Drawing.Size(107, 44);
+            this.CallOrPutGroupBox.TabIndex = 43;
+            this.CallOrPutGroupBox.TabStop = false;
+            this.CallOrPutGroupBox.Text = "Call or Put";
+            this.CallOrPutGroupBox.Enter += new System.EventHandler(this.CallOrPutGroupBox_Enter);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(555, 526);
+            this.Controls.Add(this.CallOrPutGroupBox);
             this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.label18);
             this.Controls.Add(this.coresOutput);
@@ -459,9 +482,7 @@
             this.Controls.Add(this.deltaOutput);
             this.Controls.Add(this.seOutput);
             this.Controls.Add(this.priceOutput);
-            this.Controls.Add(this.label10);
             this.Controls.Add(this.label9);
-            this.Controls.Add(this.callOrPutInput);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.simulationTimeStep);
@@ -480,6 +501,8 @@
             this.Name = "Form1";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
+            this.CallOrPutGroupBox.ResumeLayout(false);
+            this.CallOrPutGroupBox.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -502,9 +525,7 @@
         private System.Windows.Forms.TextBox simulationTimeStep;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.TextBox callOrPutInput;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.Label label10;
         private System.Windows.Forms.TextBox priceOutput;
         private System.Windows.Forms.TextBox seOutput;
         private System.Windows.Forms.TextBox deltaOutput;
@@ -527,6 +548,9 @@
         private System.Windows.Forms.TextBox coresOutput;
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.ProgressBar progressBar1;
+        private System.Windows.Forms.RadioButton CallIndicator;
+        private System.Windows.Forms.RadioButton PutIndicator;
+        private System.Windows.Forms.GroupBox CallOrPutGroupBox;
     }
 }
 

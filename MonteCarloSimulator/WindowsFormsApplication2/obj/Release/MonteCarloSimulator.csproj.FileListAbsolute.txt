@@ -1,0 +1,10 @@
+I:\XVA\Farez\MonteCarloSimulator\WindowsFormsApplication2\bin\Release\WindowsFormsApplication2.exe.config
+I:\XVA\Farez\MonteCarloSimulator\WindowsFormsApplication2\bin\Release\WindowsFormsApplication2.exe
+I:\XVA\Farez\MonteCarloSimulator\WindowsFormsApplication2\bin\Release\WindowsFormsApplication2.pdb
+I:\XVA\Farez\MonteCarloSimulator\WindowsFormsApplication2\obj\Release\WindowsFormsApplication2.Form1.resources
+I:\XVA\Farez\MonteCarloSimulator\WindowsFormsApplication2\obj\Release\WindowsFormsApplication2.Properties.Resources.resources
+I:\XVA\Farez\MonteCarloSimulator\WindowsFormsApplication2\obj\Release\MonteCarloSimulator.csproj.GenerateResource.cache
+I:\XVA\Farez\MonteCarloSimulator\WindowsFormsApplication2\obj\Release\MonteCarloSimulator.csproj.CoreCompileInputs.cache
+I:\XVA\Farez\MonteCarloSimulator\WindowsFormsApplication2\obj\Release\WindowsFormsApplication2.exe
+I:\XVA\Farez\MonteCarloSimulator\WindowsFormsApplication2\obj\Release\WindowsFormsApplication2.pdb
+I:\XVA\Farez\MonteCarloSimulator\WindowsFormsApplication2\obj\Release\MonteCarloSimulator.csprojAssemblyReference.cache

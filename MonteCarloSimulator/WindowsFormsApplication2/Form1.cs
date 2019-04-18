@@ -52,14 +52,19 @@ namespace WindowsFormsApplication2
         private void coresOutput_TextChanged(object sender, EventArgs e) { }
         private void label18_Click(object sender, EventArgs e) { }
         private void progressBar1_Click(object sender, EventArgs e) { }
+        private void CallOrPutGroupBox_Enter(object sender, EventArgs e) { }
+        private void RadioButton1_CheckedChanged(object sender, EventArgs e) { }
+        private void PutIndicator_CheckedChanged(object sender, EventArgs e) { }
 
         private void Calculate_Click(object sender, EventArgs e)
         {
             double s0, K, vol, r, T;
-            int simNumber, timeSteps, callOrPut;
+            int simNumber, timeSteps;
             bool antithetic = Antithetic.Checked;
             bool cv = CV.Checked;
             bool threading = MultiThreading.Checked;
+            bool callOrPut = CallIndicator.Checked;
+            bool putIndicator = PutIndicator.Checked;
             var watch = Stopwatch.StartNew();
 
             try
@@ -71,7 +76,6 @@ namespace WindowsFormsApplication2
                 T = Double.Parse(timeInput.Text);
                 simNumber = Int32.Parse(numberOfSimulations.Text);
                 timeSteps = Int32.Parse(simulationTimeStep.Text);
-                callOrPut = Int32.Parse(callOrPutInput.Text);
             }
             catch(Exception xc)
             {
@@ -85,7 +89,6 @@ namespace WindowsFormsApplication2
             T = Convert.ToDouble(timeInput.Text);
             simNumber = Convert.ToInt32(numberOfSimulations.Text);
             timeSteps = Convert.ToInt32(simulationTimeStep.Text);
-            callOrPut = Convert.ToInt32(callOrPutInput.Text);
 
             double deltaVol = 0.001 * vol;
             double deltaS = 0.001 * s0;
@@ -100,25 +103,52 @@ namespace WindowsFormsApplication2
 
             progressBar1.Maximum = 10;
 
+            Stopwatch debugStopWatch = new Stopwatch();
+            debugStopWatch.Start();
             randomMatrix = randomComponentMatrix.PolarRejection(simNumber, timeSteps, antithetic, threading);
+            Debug.WriteLine($"matrix simulated: {debugStopWatch.ElapsedMilliseconds}");
+            debugStopWatch.Restart();
 
             progressBar1.Value = 1;
-
             Price = Calculated(s0, K, vol, r, T, simNumber, timeSteps, antithetic, cv, callOrPut, randomMatrix, threading, out double SE, out double forGreeks);
+            Debug.WriteLine($"base: {debugStopWatch.ElapsedMilliseconds}");
+            debugStopWatch.Restart();
+
             progressBar1.Value = 2;
             deltaUp = Calculated(s0 + deltaS, K, vol, r, T, simNumber, timeSteps, antithetic, false, callOrPut, randomMatrix, threading, out double ignore, out double ignore2);
+            Debug.WriteLine($"delta up: {debugStopWatch.ElapsedMilliseconds}");
+            debugStopWatch.Restart();
+
             progressBar1.Value = 3;
             deltaDown = Calculated(s0 - deltaS, K, vol, r, T, simNumber, timeSteps, antithetic, false, callOrPut, randomMatrix, threading, out ignore, out ignore2);
+            Debug.WriteLine($"delta down: {debugStopWatch.ElapsedMilliseconds}");
+            debugStopWatch.Restart();
+
             progressBar1.Value = 4;
             vegaUp = Calculated(s0, K, vol + deltaVol, r, T, simNumber, timeSteps, antithetic, false, callOrPut, randomMatrix, threading, out ignore, out ignore2);
+            Debug.WriteLine($"vega up: {debugStopWatch.ElapsedMilliseconds}");
+            debugStopWatch.Restart();
+
             progressBar1.Value = 5;
             vegaDown = Calculated(s0, K, vol - deltaVol, r, T, simNumber, timeSteps, antithetic, false, callOrPut, randomMatrix, threading, out ignore, out ignore2);
+            Debug.WriteLine($"vega down: {debugStopWatch.ElapsedMilliseconds}");
+            debugStopWatch.Restart();
+
             progressBar1.Value = 6;
             thetaUp = Calculated(s0, K, vol, r, T + deltaTheta, simNumber, timeSteps, antithetic, false, callOrPut, randomMatrix, threading, out ignore, out ignore2);
+            Debug.WriteLine($"theta up: {debugStopWatch.ElapsedMilliseconds}");
+            debugStopWatch.Restart();
+
             progressBar1.Value = 7;
             rhoUp = Calculated(s0, K, vol, r + deltaR, T, simNumber, timeSteps, antithetic, false, callOrPut, randomMatrix, threading, out ignore, out ignore2);
+            Debug.WriteLine($"rho up: {debugStopWatch.ElapsedMilliseconds}");
+            debugStopWatch.Restart();
+
             progressBar1.Value = 8;
             rhoDown = Calculated(s0, K, vol, r - deltaR, T, simNumber, timeSteps, antithetic, false, callOrPut, randomMatrix, threading, out ignore, out ignore2);
+            Debug.WriteLine($"rho down: {debugStopWatch.ElapsedMilliseconds}");
+            debugStopWatch.Restart();
+
             progressBar1.Value = 9;
 
             Delta = (deltaUp - deltaDown) / (2 * deltaS);
@@ -149,31 +179,39 @@ namespace WindowsFormsApplication2
             rhoOutput.Text = Rho.ToString();
         }
 
-        public double Calculated(double s0, double K, double vol, double r, double T, int simNumber, int timeSteps, bool antithetic, bool CV, int callOrPut, double[,] randomMatrix, bool threading, out double SE, out double forGreeks)
+        public double Calculated(double s0, double K, double vol, double r, double T, int simNumber, int timeSteps, bool antithetic, bool CV, bool callOrPut, double[,] randomMatrix, bool threading, out double SE, out double forGreeks)
         {
+            var stopwatch = new Stopwatch();
+
             if (!antithetic)
             {
                 Simulator simulation = new Simulator();
                 double[,] simulatedStockPaths;
+                stopwatch.Start();
                 simulatedStockPaths = simulation.PathSimulator(s0, vol, r, T, simNumber, timeSteps, randomMatrix, threading);
+                Debug.WriteLine($"simulation: {stopwatch.ElapsedMilliseconds}");
 
+                stopwatch.Restart();
                 Pricer price = new Pricer();
                 double output = price.Price(K, r, T, vol, simNumber, timeSteps, callOrPut, simulatedStockPaths, CV, antithetic, out SE, out forGreeks);
+                Debug.WriteLine($"pricing: {stopwatch.ElapsedMilliseconds}");
                 return output;
             }
             else
             {
                 Simulator simulation = new Simulator();
                 double[,] simulatedStockPaths;
+                stopwatch.Start();
                 simulatedStockPaths = simulation.PathSimulator(s0, vol, r, T, 2 * simNumber, timeSteps, randomMatrix, threading);
+                Debug.WriteLine($"simulation: {stopwatch.ElapsedMilliseconds}");
 
+                stopwatch.Restart();
                 Pricer price = new Pricer();
                 double output = price.Price(K, r, T, vol, 2 * simNumber, timeSteps, callOrPut, simulatedStockPaths, CV, antithetic, out SE, out forGreeks);
+                Debug.WriteLine($"pricing: {stopwatch.ElapsedMilliseconds}");
                 return output;
             }
         }
-
-        
     }
 }
 
