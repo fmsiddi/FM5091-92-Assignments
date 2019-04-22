@@ -71,18 +71,18 @@
             this.CallOrPutGroupBox = new System.Windows.Forms.GroupBox();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.TypeGroupBox = new System.Windows.Forms.GroupBox();
+            this.label19 = new System.Windows.Forms.Label();
+            this.BarrierInput = new System.Windows.Forms.TextBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.RebateInput = new System.Windows.Forms.TextBox();
+            this.BarrierType = new System.Windows.Forms.ComboBox();
             this.RangeIndicator = new System.Windows.Forms.RadioButton();
             this.LookbackIndicator = new System.Windows.Forms.RadioButton();
+            this.BarrierIndicator = new System.Windows.Forms.RadioButton();
             this.DigitalIndicator = new System.Windows.Forms.RadioButton();
             this.AsianIndicator = new System.Windows.Forms.RadioButton();
             this.EuroIndicator = new System.Windows.Forms.RadioButton();
-            this.BarrierIndicator = new System.Windows.Forms.RadioButton();
-            this.BarrierType = new System.Windows.Forms.ComboBox();
-            this.RebateInput = new System.Windows.Forms.TextBox();
-            this.label9 = new System.Windows.Forms.Label();
-            this.label10 = new System.Windows.Forms.Label();
-            this.BarrierInput = new System.Windows.Forms.TextBox();
-            this.label19 = new System.Windows.Forms.Label();
             this.CallOrPutGroupBox.SuspendLayout();
             this.TypeGroupBox.SuspendLayout();
             this.SuspendLayout();
@@ -181,7 +181,7 @@
             // 
             // Calculate
             // 
-            this.Calculate.Location = new System.Drawing.Point(235, 608);
+            this.Calculate.Location = new System.Drawing.Point(235, 544);
             this.Calculate.Name = "Calculate";
             this.Calculate.Size = new System.Drawing.Size(75, 23);
             this.Calculate.TabIndex = 12;
@@ -195,7 +195,7 @@
             this.numberOfSimulations.Name = "numberOfSimulations";
             this.numberOfSimulations.Size = new System.Drawing.Size(100, 20);
             this.numberOfSimulations.TabIndex = 13;
-            this.numberOfSimulations.Text = "1000000";
+            this.numberOfSimulations.Text = "10000";
             this.numberOfSimulations.TextChanged += new System.EventHandler(this.numberOfSimulations_TextChanged);
             // 
             // simulationTimeStep
@@ -204,7 +204,7 @@
             this.simulationTimeStep.Name = "simulationTimeStep";
             this.simulationTimeStep.Size = new System.Drawing.Size(100, 20);
             this.simulationTimeStep.TabIndex = 14;
-            this.simulationTimeStep.Text = "2";
+            this.simulationTimeStep.Text = "100";
             this.simulationTimeStep.TextChanged += new System.EventHandler(this.simulationTimeStep_TextChanged);
             // 
             // label7
@@ -418,7 +418,7 @@
             // 
             // progressBar1
             // 
-            this.progressBar1.Location = new System.Drawing.Point(25, 545);
+            this.progressBar1.Location = new System.Drawing.Point(25, 494);
             this.progressBar1.Name = "progressBar1";
             this.progressBar1.Size = new System.Drawing.Size(499, 23);
             this.progressBar1.TabIndex = 40;
@@ -491,6 +491,70 @@
             this.TypeGroupBox.Text = "Type";
             this.TypeGroupBox.Enter += new System.EventHandler(this.TypeGroupBox_Enter);
             // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Location = new System.Drawing.Point(85, 174);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(40, 13);
+            this.label19.TabIndex = 48;
+            this.label19.Text = "Barrier:";
+            this.label19.Click += new System.EventHandler(this.Label19_Click);
+            // 
+            // BarrierInput
+            // 
+            this.BarrierInput.Enabled = false;
+            this.BarrierInput.Location = new System.Drawing.Point(136, 171);
+            this.BarrierInput.Name = "BarrierInput";
+            this.BarrierInput.Size = new System.Drawing.Size(47, 20);
+            this.BarrierInput.TabIndex = 47;
+            this.BarrierInput.TextChanged += new System.EventHandler(this.BarrierInput_TextChanged);
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(85, 150);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(34, 13);
+            this.label10.TabIndex = 46;
+            this.label10.Text = "Type:";
+            this.label10.Click += new System.EventHandler(this.Label10_Click);
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(85, 114);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(45, 13);
+            this.label9.TabIndex = 45;
+            this.label9.Text = "Rebate:";
+            this.label9.Click += new System.EventHandler(this.Label9_Click);
+            // 
+            // RebateInput
+            // 
+            this.RebateInput.Enabled = false;
+            this.RebateInput.Location = new System.Drawing.Point(136, 111);
+            this.RebateInput.Name = "RebateInput";
+            this.RebateInput.Size = new System.Drawing.Size(47, 20);
+            this.RebateInput.TabIndex = 44;
+            this.RebateInput.TextChanged += new System.EventHandler(this.TextBox1_TextChanged);
+            // 
+            // BarrierType
+            // 
+            this.BarrierType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.BarrierType.Enabled = false;
+            this.BarrierType.FormattingEnabled = true;
+            this.BarrierType.Items.AddRange(new object[] {
+            "Up and In",
+            "Up and Out",
+            "Down and In",
+            "Down and Out"});
+            this.BarrierType.Location = new System.Drawing.Point(136, 147);
+            this.BarrierType.Name = "BarrierType";
+            this.BarrierType.Size = new System.Drawing.Size(84, 21);
+            this.BarrierType.TabIndex = 5;
+            this.BarrierType.SelectedIndexChanged += new System.EventHandler(this.ComboBox1_SelectedIndexChanged);
+            // 
             // RangeIndicator
             // 
             this.RangeIndicator.AutoSize = true;
@@ -512,6 +576,18 @@
             this.LookbackIndicator.Text = "Lookback";
             this.LookbackIndicator.UseVisualStyleBackColor = true;
             this.LookbackIndicator.CheckedChanged += new System.EventHandler(this.LookbackIndicator_CheckedChanged);
+            // 
+            // BarrierIndicator
+            // 
+            this.BarrierIndicator.AutoSize = true;
+            this.BarrierIndicator.Location = new System.Drawing.Point(21, 148);
+            this.BarrierIndicator.Name = "BarrierIndicator";
+            this.BarrierIndicator.Size = new System.Drawing.Size(55, 17);
+            this.BarrierIndicator.TabIndex = 0;
+            this.BarrierIndicator.TabStop = true;
+            this.BarrierIndicator.Text = "Barrier";
+            this.BarrierIndicator.UseVisualStyleBackColor = true;
+            this.BarrierIndicator.CheckedChanged += new System.EventHandler(this.UpInIndicator_CheckedChanged);
             // 
             // DigitalIndicator
             // 
@@ -548,87 +624,11 @@
             this.EuroIndicator.UseVisualStyleBackColor = true;
             this.EuroIndicator.CheckedChanged += new System.EventHandler(this.EuroIndicator_CheckedChanged);
             // 
-            // BarrierIndicator
-            // 
-            this.BarrierIndicator.AutoSize = true;
-            this.BarrierIndicator.Location = new System.Drawing.Point(21, 148);
-            this.BarrierIndicator.Name = "BarrierIndicator";
-            this.BarrierIndicator.Size = new System.Drawing.Size(55, 17);
-            this.BarrierIndicator.TabIndex = 0;
-            this.BarrierIndicator.TabStop = true;
-            this.BarrierIndicator.Text = "Barrier";
-            this.BarrierIndicator.UseVisualStyleBackColor = true;
-            this.BarrierIndicator.CheckedChanged += new System.EventHandler(this.UpInIndicator_CheckedChanged);
-            // 
-            // BarrierType
-            // 
-            this.BarrierType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.BarrierType.Enabled = false;
-            this.BarrierType.FormattingEnabled = true;
-            this.BarrierType.Items.AddRange(new object[] {
-            "Up and In",
-            "Up and Out",
-            "Down and In",
-            "Down and Out"});
-            this.BarrierType.Location = new System.Drawing.Point(136, 147);
-            this.BarrierType.Name = "BarrierType";
-            this.BarrierType.Size = new System.Drawing.Size(84, 21);
-            this.BarrierType.TabIndex = 5;
-            this.BarrierType.SelectedIndexChanged += new System.EventHandler(this.ComboBox1_SelectedIndexChanged);
-            // 
-            // RebateInput
-            // 
-            this.RebateInput.Enabled = false;
-            this.RebateInput.Location = new System.Drawing.Point(136, 111);
-            this.RebateInput.Name = "RebateInput";
-            this.RebateInput.Size = new System.Drawing.Size(47, 20);
-            this.RebateInput.TabIndex = 44;
-            this.RebateInput.TextChanged += new System.EventHandler(this.TextBox1_TextChanged);
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(85, 114);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(45, 13);
-            this.label9.TabIndex = 45;
-            this.label9.Text = "Rebate:";
-            this.label9.Click += new System.EventHandler(this.Label9_Click);
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(85, 150);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(34, 13);
-            this.label10.TabIndex = 46;
-            this.label10.Text = "Type:";
-            this.label10.Click += new System.EventHandler(this.Label10_Click);
-            // 
-            // BarrierInput
-            // 
-            this.BarrierInput.Enabled = false;
-            this.BarrierInput.Location = new System.Drawing.Point(136, 171);
-            this.BarrierInput.Name = "BarrierInput";
-            this.BarrierInput.Size = new System.Drawing.Size(47, 20);
-            this.BarrierInput.TabIndex = 47;
-            this.BarrierInput.TextChanged += new System.EventHandler(this.BarrierInput_TextChanged);
-            // 
-            // label19
-            // 
-            this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(85, 174);
-            this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(40, 13);
-            this.label19.TabIndex = 48;
-            this.label19.Text = "Barrier:";
-            this.label19.Click += new System.EventHandler(this.Label19_Click);
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(555, 719);
+            this.ClientSize = new System.Drawing.Size(555, 588);
             this.Controls.Add(this.TypeGroupBox);
             this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.label18);

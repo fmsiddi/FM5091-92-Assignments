@@ -138,12 +138,15 @@ namespace WindowsFormsApplication2
                 {
                     MessageBox.Show(xc.Message);
                 }
-                barrier = Convert.ToDouble(RebateInput.Text);
+                barrier = Convert.ToDouble(BarrierInput.Text);
             }
             else
             {
                 barrier = 0;
             }
+
+            
+
             simNumber = Convert.ToInt32(numberOfSimulations.Text);
             timeSteps = Convert.ToInt32(simulationTimeStep.Text);
             
@@ -167,9 +170,49 @@ namespace WindowsFormsApplication2
             {
                 optionType = "Digital";
             }
+            //else if (BarrierIndicator.Checked)
+            //{
+            //    optionType = "Barrier";
+            //}
             else
             {
                 optionType = "Barrier";
+            }
+
+            if (optionType == "Barrier")
+            {
+                if (callOrPut)
+                {
+                    if (barrier < K)
+                    {
+                        MessageBox.Show("The resulting output will not make sense. Barrier for Call must be greater than strike price.");
+                    }
+                }
+                else
+                {
+                    if (barrier > K)
+                    {
+                        MessageBox.Show("The resulting output will not make sense. Barrier for Put must be less than strike price.");
+                    }
+                }
+                if (barrierType == "Up and In" || barrierType == "Up and Out")
+                {
+                    if (barrier < s0)
+                    {
+                        MessageBox.Show("The resulting output will not make sense. Barrier for 'Up-and-...' option must be greater than initial underlying price.");
+                    }
+                }
+                else if (barrierType == "Down and In" || barrierType == "Down and Out")
+                {
+                    if (barrier > s0)
+                    {
+                        MessageBox.Show("The resulting output will not make sense. Barrier for 'Down-and-...' option must be less than initial underlying price.");
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Please select barrier type.");
+                }
             }
 
             double deltaVol = 0.001 * vol;
@@ -252,13 +295,13 @@ namespace WindowsFormsApplication2
             }
             
             lblTimer.Text = watch.Elapsed.ToString();
-            priceOutput.Text = Price.ToString();
-            seOutput.Text = SE.ToString();
-            deltaOutput.Text = Delta.ToString();
-            gammaOutput.Text = Gamma.ToString();
-            vegaOutput.Text = Vega.ToString();
-            thetaOutput.Text = Theta.ToString();
-            rhoOutput.Text = Rho.ToString();
+            priceOutput.Text = Price.ToString("C");
+            seOutput.Text = SE.ToString("F5");
+            deltaOutput.Text = Delta.ToString("F5");
+            gammaOutput.Text = Gamma.ToString("F5");
+            vegaOutput.Text = Vega.ToString("F5");
+            thetaOutput.Text = Theta.ToString("F5");
+            rhoOutput.Text = Rho.ToString("F5");
         }
 
         public double Calculated(double s0, double K, double vol, double r, double T, int simNumber, int timeSteps, bool antithetic, bool CV, bool callOrPut, double[,] randomMatrix, bool threading, string optionType, double digitalRebate, double barrier, string barrierType, out double SE, out double forGreeks)

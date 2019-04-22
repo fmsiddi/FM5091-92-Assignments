@@ -23,17 +23,6 @@ namespace WindowsFormsApplication2
             //terminalPayoffVector = new double[simNumber];
             discountedPayoffVector = new double[simNumber];
 
-            //for (int i = 0; i < simNumber; i++)
-            //{
-            //    if (callOrPut)
-            //    {
-            //        terminalPayoffVector[i] = Math.Max(simulatedStockPaths[i, timeSteps - 1] - K, 0);
-            //    }
-            //    else
-            //    {
-            //        terminalPayoffVector[i] = Math.Max(K - simulatedStockPaths[i, timeSteps - 1], 0);
-            //    }
-            //}
 
             Option o;
             
