@@ -80,9 +80,10 @@ namespace WindowsFormsApplication2
 
         private void Calculate_Click(object sender, EventArgs e)
         {
-            double s0, K, vol, r, T; 
-            double? digitalRebate, barrier;
+            double s0, K, vol, r, T, SE, forGreeks, ignore, ignore2; 
+            double digitalRebate, barrier;
             int simNumber, timeSteps;
+            string optionType;
             bool antithetic = Antithetic.Checked;
             bool cv = CV.Checked;
             bool threading = MultiThreading.Checked;
@@ -122,6 +123,11 @@ namespace WindowsFormsApplication2
                 }
                 digitalRebate = Convert.ToDouble(RebateInput.Text);
             }
+            else
+            {
+                digitalRebate = 0;
+            }
+            
             if (BarrierInput.Text != "")
             {
                 try
@@ -134,9 +140,37 @@ namespace WindowsFormsApplication2
                 }
                 barrier = Convert.ToDouble(RebateInput.Text);
             }
+            else
+            {
+                barrier = 0;
+            }
             simNumber = Convert.ToInt32(numberOfSimulations.Text);
             timeSteps = Convert.ToInt32(simulationTimeStep.Text);
             
+            if (EuroIndicator.Checked)
+            {
+                optionType = "Euro";
+            }
+            else if (AsianIndicator.Checked)
+            {
+                optionType = "Asian";
+            }
+            else if (LookbackIndicator.Checked)
+            {
+                optionType = "Lookback";
+            }
+            else if (RangeIndicator.Checked)
+            {
+                optionType = "Range";
+            }
+            else if (DigitalIndicator.Checked)
+            {
+                optionType = "Digital";
+            }
+            else
+            {
+                optionType = "Barrier";
+            }
 
             double deltaVol = 0.001 * vol;
             double deltaS = 0.001 * s0;
@@ -158,42 +192,42 @@ namespace WindowsFormsApplication2
             debugStopWatch.Restart();
 
             progressBar1.Value = 1;
-            Price = Calculated(s0, K, vol, r, T, simNumber, timeSteps, antithetic, cv, callOrPut, randomMatrix, threading, out double SE, out double forGreeks);
+            Price = Calculated(s0, K, vol, r, T, simNumber, timeSteps, antithetic, cv, callOrPut, randomMatrix, threading, optionType, digitalRebate, barrier, barrierType, out SE, out forGreeks);
             Debug.WriteLine($"base: {debugStopWatch.ElapsedMilliseconds}");
             debugStopWatch.Restart();
 
             progressBar1.Value = 2;
-            deltaUp = Calculated(s0 + deltaS, K, vol, r, T, simNumber, timeSteps, antithetic, false, callOrPut, randomMatrix, threading, out double ignore, out double ignore2);
+            deltaUp = Calculated(s0 + deltaS, K, vol, r, T, simNumber, timeSteps, antithetic, false, callOrPut, randomMatrix, threading, optionType, digitalRebate, barrier, barrierType, out ignore, out ignore2);
             Debug.WriteLine($"delta up: {debugStopWatch.ElapsedMilliseconds}");
             debugStopWatch.Restart();
 
             progressBar1.Value = 3;
-            deltaDown = Calculated(s0 - deltaS, K, vol, r, T, simNumber, timeSteps, antithetic, false, callOrPut, randomMatrix, threading, out ignore, out ignore2);
+            deltaDown = Calculated(s0 - deltaS, K, vol, r, T, simNumber, timeSteps, antithetic, false, callOrPut, randomMatrix, threading, optionType, digitalRebate, barrier, barrierType, out ignore, out ignore2);
             Debug.WriteLine($"delta down: {debugStopWatch.ElapsedMilliseconds}");
             debugStopWatch.Restart();
 
             progressBar1.Value = 4;
-            vegaUp = Calculated(s0, K, vol + deltaVol, r, T, simNumber, timeSteps, antithetic, false, callOrPut, randomMatrix, threading, out ignore, out ignore2);
+            vegaUp = Calculated(s0, K, vol + deltaVol, r, T, simNumber, timeSteps, antithetic, false, callOrPut, randomMatrix, threading, optionType, digitalRebate, barrier, barrierType, out ignore, out ignore2);
             Debug.WriteLine($"vega up: {debugStopWatch.ElapsedMilliseconds}");
             debugStopWatch.Restart();
 
             progressBar1.Value = 5;
-            vegaDown = Calculated(s0, K, vol - deltaVol, r, T, simNumber, timeSteps, antithetic, false, callOrPut, randomMatrix, threading, out ignore, out ignore2);
+            vegaDown = Calculated(s0, K, vol - deltaVol, r, T, simNumber, timeSteps, antithetic, false, callOrPut, randomMatrix, threading, optionType, digitalRebate, barrier, barrierType, out ignore, out ignore2);
             Debug.WriteLine($"vega down: {debugStopWatch.ElapsedMilliseconds}");
             debugStopWatch.Restart();
 
             progressBar1.Value = 6;
-            thetaUp = Calculated(s0, K, vol, r, T + deltaTheta, simNumber, timeSteps, antithetic, false, callOrPut, randomMatrix, threading, out ignore, out ignore2);
+            thetaUp = Calculated(s0, K, vol, r, T + deltaTheta, simNumber, timeSteps, antithetic, false, callOrPut, randomMatrix, threading, optionType, digitalRebate, barrier, barrierType, out ignore, out ignore2);
             Debug.WriteLine($"theta up: {debugStopWatch.ElapsedMilliseconds}");
             debugStopWatch.Restart();
 
             progressBar1.Value = 7;
-            rhoUp = Calculated(s0, K, vol, r + deltaR, T, simNumber, timeSteps, antithetic, false, callOrPut, randomMatrix, threading, out ignore, out ignore2);
+            rhoUp = Calculated(s0, K, vol, r + deltaR, T, simNumber, timeSteps, antithetic, false, callOrPut, randomMatrix, threading, optionType, digitalRebate, barrier, barrierType, out ignore, out ignore2);
             Debug.WriteLine($"rho up: {debugStopWatch.ElapsedMilliseconds}");
             debugStopWatch.Restart();
 
             progressBar1.Value = 8;
-            rhoDown = Calculated(s0, K, vol, r - deltaR, T, simNumber, timeSteps, antithetic, false, callOrPut, randomMatrix, threading, out ignore, out ignore2);
+            rhoDown = Calculated(s0, K, vol, r - deltaR, T, simNumber, timeSteps, antithetic, false, callOrPut, randomMatrix, threading, optionType, digitalRebate, barrier, barrierType, out ignore, out ignore2);
             Debug.WriteLine($"rho down: {debugStopWatch.ElapsedMilliseconds}");
             debugStopWatch.Restart();
 
@@ -227,7 +261,7 @@ namespace WindowsFormsApplication2
             rhoOutput.Text = Rho.ToString();
         }
 
-        public double Calculated(double s0, double K, double vol, double r, double T, int simNumber, int timeSteps, bool antithetic, bool CV, bool callOrPut, double[,] randomMatrix, bool threading, out double SE, out double forGreeks)
+        public double Calculated(double s0, double K, double vol, double r, double T, int simNumber, int timeSteps, bool antithetic, bool CV, bool callOrPut, double[,] randomMatrix, bool threading, string optionType, double digitalRebate, double barrier, string barrierType, out double SE, out double forGreeks)
         {
             var stopwatch = new Stopwatch();
 
@@ -241,7 +275,7 @@ namespace WindowsFormsApplication2
 
                 stopwatch.Restart();
                 Pricer price = new Pricer();
-                double output = price.Price(K, r, T, vol, simNumber, timeSteps, callOrPut, simulatedStockPaths, CV, antithetic, out SE, out forGreeks);
+                double output = price.Price(K, r, T, vol, optionType, simNumber, timeSteps, callOrPut, digitalRebate, barrier, barrierType, simulatedStockPaths, CV, antithetic, out SE, out forGreeks);
                 Debug.WriteLine($"pricing: {stopwatch.ElapsedMilliseconds}");
                 return output;
             }
@@ -255,7 +289,7 @@ namespace WindowsFormsApplication2
 
                 stopwatch.Restart();
                 Pricer price = new Pricer();
-                double output = price.Price(K, r, T, vol, 2 * simNumber, timeSteps, callOrPut, simulatedStockPaths, CV, antithetic, out SE, out forGreeks);
+                double output = price.Price(K, r, T, vol, optionType, 2 * simNumber, timeSteps, callOrPut, digitalRebate, barrier, barrierType, simulatedStockPaths, CV, antithetic, out SE, out forGreeks);
                 Debug.WriteLine($"pricing: {stopwatch.ElapsedMilliseconds}");
                 return output;
             }

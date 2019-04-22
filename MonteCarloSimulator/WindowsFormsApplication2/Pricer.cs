@@ -8,7 +8,7 @@ namespace WindowsFormsApplication2
 {
     class Pricer
     {
-        public double Price(double K, double r, double T, double vol, int simNumber, int timeSteps, bool callOrPut, double[,] simulatedStockPaths, bool CV, bool antithetic, out double SE, out double forGreeks)
+        public double Price(double K, double r, double T, double vol, string optionType, int simNumber, int timeSteps, bool callOrPut, double digitalRebate, double barrier, string barrierType, double[,] simulatedStockPaths, bool CV, bool antithetic, out double SE, out double forGreeks)
         {
             double p;
             double CT;
@@ -17,23 +17,52 @@ namespace WindowsFormsApplication2
             double forGreeksSum = 0;
             double SD;
             double sumForSD = 0;
-            double[] terminalPayoffVector;
+            //double[] terminalPayoffVector;
             double[] discountedPayoffVector;
 
-            terminalPayoffVector = new double[simNumber];
+            //terminalPayoffVector = new double[simNumber];
             discountedPayoffVector = new double[simNumber];
 
-            for (int i = 0; i < simNumber; i++)
+            //for (int i = 0; i < simNumber; i++)
+            //{
+            //    if (callOrPut)
+            //    {
+            //        terminalPayoffVector[i] = Math.Max(simulatedStockPaths[i, timeSteps - 1] - K, 0);
+            //    }
+            //    else
+            //    {
+            //        terminalPayoffVector[i] = Math.Max(K - simulatedStockPaths[i, timeSteps - 1], 0);
+            //    }
+            //}
+
+            Option o;
+            
+            if (optionType == "Euro")
             {
-                if (callOrPut)
-                {
-                    terminalPayoffVector[i] = Math.Max(simulatedStockPaths[i, timeSteps - 1] - K, 0);
-                }
-                else
-                {
-                    terminalPayoffVector[i] = Math.Max(K - simulatedStockPaths[i, timeSteps - 1], 0);
-                }
+                o = new Euro(simulatedStockPaths, K, simNumber, timeSteps, callOrPut);
             }
+            else if (optionType == "Asian")
+            {
+                o = new Asian(simulatedStockPaths, K, simNumber, timeSteps, callOrPut);
+            }
+            else if (optionType == "Lookback")
+            {
+                o = new Lookback(simulatedStockPaths, K, simNumber, timeSteps, callOrPut);
+            }
+            else if (optionType == "Range")
+            {
+                o = new Range(simulatedStockPaths, K, simNumber, timeSteps, callOrPut);
+            }
+            else if (optionType == "Digital")
+            {
+                o = new Digital(simulatedStockPaths, K, simNumber, timeSteps, callOrPut, digitalRebate);
+            }
+            else
+            {
+                o = new Barrier(simulatedStockPaths, K, simNumber, timeSteps, callOrPut, barrier, barrierType);
+            }
+
+            double[] terminalPayoffVector = o.terminalPayoff();
 
             if (!CV)
             {

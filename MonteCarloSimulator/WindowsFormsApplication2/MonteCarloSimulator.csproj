@@ -46,10 +46,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Asian.cs" />
+    <Compile Include="Barrier.cs" />
     <Compile Include="BlackScholes.cs" />
     <Compile Include="ControlVariate.cs" />
+    <Compile Include="Digital.cs" />
+    <Compile Include="Euro.cs" />
+    <Compile Include="Lookback.cs" />
     <Compile Include="Option.cs" />
     <Compile Include="Pricer.cs" />
+    <Compile Include="Range.cs" />
     <Compile Include="Simulator.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
