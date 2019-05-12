@@ -11,10 +11,6 @@
     <EntitySet Name="InstTypes" EntityType="EntityModel.Store.InstTypes" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Trades" EntityType="EntityModel.Store.Trades" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="InterestRates" EntityType="EntityModel.Store.InterestRates" store:Type="Tables" Schema="dbo" />
-    <AssociationSet Name="TradeInstrument" Association="EntityModel.Store.TradeInstrument">
-      <End Role="Trade" EntitySet="Trades" />
-      <End Role="Instrument" EntitySet="Instruments" />
-    </AssociationSet>
   </EntityContainer>
   <EntityType Name="Instruments">
     <Key>
@@ -56,7 +52,7 @@
     <Property Name="Quantity" Type="int" Nullable="false" />
     <Property Name="PriceTradedAt" Type="float" Nullable="false" />
     <Property Name="TradeDate" Type="datetime" Nullable="false" />
-    <Property Name="InstrumentID" Type="int" Nullable="false" />
+    <Property Name="InstrumentName" Type="nvarchar(max)" Nullable="false" />
     <Property Name="MarkToMarket" Type="float" Nullable="false" />
     <Property Name="PnL" Type="float" Nullable="false" />
     <Property Name="Delta" Type="float" Nullable="false" />
@@ -73,18 +69,6 @@
     <Property Name="Tenor" Type="float" Nullable="false" />
     <Property Name="Rate" Type="float" Nullable="false" />
   </EntityType>
-  <Association Name="TradeInstrument">
-    <End Role="Trade" Type="EntityModel.Store.Trades" Multiplicity="*" />
-    <End Role="Instrument" Type="EntityModel.Store.Instruments" Multiplicity="1" />
-    <ReferentialConstraint>
-      <Principal Role="Instrument">
-        <PropertyRef Name="ID" />
-      </Principal>
-      <Dependent Role="Trade">
-        <PropertyRef Name="InstrumentID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
 </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
@@ -94,10 +78,6 @@
           <EntitySet Name="Prices" EntityType="EntityModel.Price" />
           <EntitySet Name="InstTypes" EntityType="EntityModel.InstType" />
           <EntitySet Name="Trades" EntityType="EntityModel.Trade" />
-          <AssociationSet Name="TradeInstrument" Association="EntityModel.TradeInstrument">
-            <End Role="Trade" EntitySet="Trades" />
-            <End Role="Instrument" EntitySet="Instruments" />
-          </AssociationSet>
           <EntitySet Name="InterestRates" EntityType="EntityModel.InterestRate" />
         </EntityContainer>
         <EntityType Name="Instrument">
@@ -110,7 +90,6 @@
           <Property Name="Tenor" Type="Double" Nullable="true" />
           <Property Name="CallOrPut" Type="String" Nullable="true" />
           <Property Name="InstType" Type="String" Nullable="false" />
-          <NavigationProperty Name="Trades" Relationship="EntityModel.TradeInstrument" FromRole="Instrument" ToRole="Trade" />
           <Property Name="Rebate" Type="Double" Nullable="true" />
           <Property Name="Barrier" Type="Double" Nullable="true" />
           <Property Name="InstrumentTicker" Type="String" Nullable="false" />
@@ -141,8 +120,7 @@
           <Property Name="Quantity" Type="Int32" Nullable="false" />
           <Property Name="PriceTradedAt" Type="Double" Nullable="false" />
           <Property Name="TradeDate" Type="DateTime" Nullable="false" />
-          <NavigationProperty Name="Instrument" Relationship="EntityModel.TradeInstrument" FromRole="Trade" ToRole="Instrument" />
-          <Property Name="InstrumentID" Type="Int32" Nullable="false" />
+          <Property Name="InstrumentName" Type="String" Nullable="false" />
           <Property Name="MarkToMarket" Type="Double" Nullable="false" />
           <Property Name="PnL" Type="Double" Nullable="false" />
           <Property Name="Delta" Type="Double" Nullable="false" />
@@ -151,18 +129,6 @@
           <Property Name="Theta" Type="Double" Nullable="true" />
           <Property Name="Rho" Type="Double" Nullable="true" />
         </EntityType>
-        <Association Name="TradeInstrument">
-          <End Type="EntityModel.Trade" Role="Trade" Multiplicity="*" />
-          <End Type="EntityModel.Instrument" Role="Instrument" Multiplicity="1" />
-          <ReferentialConstraint>
-            <Principal Role="Instrument">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Trade">
-              <PropertyRef Name="InstrumentID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="InterestRate">
           <Key>
             <PropertyRef Name="ID" />
@@ -219,7 +185,7 @@
           <ScalarProperty Name="Quantity" ColumnName="Quantity" />
           <ScalarProperty Name="PriceTradedAt" ColumnName="PriceTradedAt" />
           <ScalarProperty Name="TradeDate" ColumnName="TradeDate" />
-          <ScalarProperty Name="InstrumentID" ColumnName="InstrumentID" />
+          <ScalarProperty Name="InstrumentName" ColumnName="InstrumentName" />
           <ScalarProperty Name="MarkToMarket" ColumnName="MarkToMarket" />
           <ScalarProperty Name="PnL" ColumnName="PnL" />
           <ScalarProperty Name="Delta" ColumnName="Delta" />

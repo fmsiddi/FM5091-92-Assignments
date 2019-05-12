@@ -14,12 +14,6 @@ namespace DB
     
     public partial class Instrument
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Instrument()
-        {
-            this.Trades = new HashSet<Trade>();
-        }
-
         public int ID { get; set; }
         public string UnderlyingTicker { get; set; }
         public string UnderlyingName { get; set; }
@@ -30,7 +24,5 @@ namespace DB
         public string InstType { get; set; }
         public double? Rebate { get; set; }
         public double? Barrier { get; set; }
-
-        public virtual ICollection<Trade> Trades { get; set; }
     }
 }

@@ -43,7 +43,7 @@
           <ScalarProperty Name="Quantity" ColumnName="Quantity" />
           <ScalarProperty Name="PriceTradedAt" ColumnName="PriceTradedAt" />
           <ScalarProperty Name="TradeDate" ColumnName="TradeDate" />
-          <ScalarProperty Name="InstrumentID" ColumnName="InstrumentID" />
+          <ScalarProperty Name="InstrumentName" ColumnName="InstrumentName" />
           <ScalarProperty Name="MarkToMarket" ColumnName="MarkToMarket" />
           <ScalarProperty Name="PnL" ColumnName="PnL" />
           <ScalarProperty Name="Delta" ColumnName="Delta" />

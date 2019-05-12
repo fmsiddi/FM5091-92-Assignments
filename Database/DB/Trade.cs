@@ -19,7 +19,7 @@ namespace DB
         public int Quantity { get; set; }
         public double PriceTradedAt { get; set; }
         public System.DateTime TradeDate { get; set; }
-        public int InstrumentID { get; set; }
+        public string InstrumentName { get; set; }
         public double MarkToMarket { get; set; }
         public double PnL { get; set; }
         public double Delta { get; set; }
@@ -27,7 +27,5 @@ namespace DB
         public double Vega { get; set; }
         public double Theta { get; set; }
         public double Rho { get; set; }
-    
-        public virtual Instrument Instrument { get; set; }
     }
 }

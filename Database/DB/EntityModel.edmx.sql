@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 05/12/2019 16:17:15
+-- Date Created: 05/12/2019 17:10:29
 -- Generated from EDMX file: C:\Users\farez\source\repos\Database\DB\EntityModel.edmx
 -- --------------------------------------------------
 
@@ -83,7 +83,7 @@ CREATE TABLE [dbo].[Trades] (
     [Quantity] int  NOT NULL,
     [PriceTradedAt] float  NOT NULL,
     [TradeDate] datetime  NOT NULL,
-    [InstrumentID] int  NOT NULL,
+    [InstrumentName] nvarchar(max)  NOT NULL,
     [MarkToMarket] float  NOT NULL,
     [PnL] float  NOT NULL,
     [Delta] float  NOT NULL,
@@ -139,21 +139,6 @@ GO
 -- --------------------------------------------------
 -- Creating all FOREIGN KEY constraints
 -- --------------------------------------------------
-
--- Creating foreign key on [InstrumentID] in table 'Trades'
-ALTER TABLE [dbo].[Trades]
-ADD CONSTRAINT [FK_TradeInstrument]
-    FOREIGN KEY ([InstrumentID])
-    REFERENCES [dbo].[Instruments]
-        ([ID])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
-
--- Creating non-clustered index for FOREIGN KEY 'FK_TradeInstrument'
-CREATE INDEX [IX_FK_TradeInstrument]
-ON [dbo].[Trades]
-    ([InstrumentID]);
-GO
 
 -- --------------------------------------------------
 -- Script has ended
