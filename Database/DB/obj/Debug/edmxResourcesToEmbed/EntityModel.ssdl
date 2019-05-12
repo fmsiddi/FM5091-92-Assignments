@@ -6,10 +6,6 @@
     <EntitySet Name="InstTypes" EntityType="EntityModel.Store.InstTypes" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Trades" EntityType="EntityModel.Store.Trades" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="InterestRates" EntityType="EntityModel.Store.InterestRates" store:Type="Tables" Schema="dbo" />
-    <AssociationSet Name="InstrumentToType" Association="EntityModel.Store.InstrumentToType">
-      <End Role="Instrument" EntitySet="Instruments" />
-      <End Role="InstType" EntitySet="InstTypes" />
-    </AssociationSet>
     <AssociationSet Name="TradeInstrument" Association="EntityModel.Store.TradeInstrument">
       <End Role="Trade" EntitySet="Trades" />
       <End Role="Instrument" EntitySet="Instruments" />
@@ -23,9 +19,8 @@
     <Property Name="UnderlyingTicker" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Strike" Type="float" Nullable="true" />
     <Property Name="Tenor" Type="float" Nullable="true" />
-    <Property Name="IsCall" Type="bit" Nullable="true" />
-    <Property Name="InstTypeID" Type="int" Nullable="false" />
-    <Property Name="UnderlyingPrice" Type="float" Nullable="false" />
+    <Property Name="CallOrPut" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="InstType" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Rebate" Type="float" Nullable="true" />
     <Property Name="Barrier" Type="float" Nullable="true" />
     <Property Name="InstrumentTicker" Type="nvarchar(max)" Nullable="false" />
@@ -52,7 +47,7 @@
       <PropertyRef Name="ID" />
     </Key>
     <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="IsBuy" Type="bit" Nullable="false" />
+    <Property Name="BuyOrSell" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Quantity" Type="int" Nullable="false" />
     <Property Name="PriceTradedAt" Type="float" Nullable="false" />
     <Property Name="TradeDate" Type="datetime" Nullable="false" />
@@ -73,18 +68,6 @@
     <Property Name="Tenor" Type="float" Nullable="false" />
     <Property Name="Rate" Type="float" Nullable="false" />
   </EntityType>
-  <Association Name="InstrumentToType">
-    <End Role="Instrument" Type="EntityModel.Store.Instruments" Multiplicity="*" />
-    <End Role="InstType" Type="EntityModel.Store.InstTypes" Multiplicity="1" />
-    <ReferentialConstraint>
-      <Principal Role="InstType">
-        <PropertyRef Name="ID" />
-      </Principal>
-      <Dependent Role="Instrument">
-        <PropertyRef Name="InstTypeID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="TradeInstrument">
     <End Role="Trade" Type="EntityModel.Store.Trades" Multiplicity="*" />
     <End Role="Instrument" Type="EntityModel.Store.Instruments" Multiplicity="1" />

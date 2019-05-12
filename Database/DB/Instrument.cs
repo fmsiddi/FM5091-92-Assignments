@@ -19,21 +19,18 @@ namespace DB
         {
             this.Trades = new HashSet<Trade>();
         }
-    
+
         public int ID { get; set; }
         public string UnderlyingTicker { get; set; }
         public string UnderlyingName { get; set; }
         public string InstrumentTicker { get; set; }
-        public double Strike { get; set; }
-        public double Tenor { get; set; }
-        public bool IsCall { get; set; }
-        public int InstTypeID { get; set; }
-        public double UnderlyingPrice { get; set; }
-        public double Rebate { get; set; }
-        public double Barrier { get; set; }
-    
-        public virtual InstType InstType { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public double? Strike { get; set; }
+        public double? Tenor { get; set; }
+        public string CallOrPut { get; set; }
+        public string InstType { get; set; }
+        public double? Rebate { get; set; }
+        public double? Barrier { get; set; }
+
         public virtual ICollection<Trade> Trades { get; set; }
     }
 }

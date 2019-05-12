@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 05/11/2019 20:15:50
+-- Date Created: 05/12/2019 16:17:15
 -- Generated from EDMX file: C:\Users\farez\source\repos\Database\DB\EntityModel.edmx
 -- --------------------------------------------------
 
@@ -17,9 +17,6 @@ GO
 -- Dropping existing FOREIGN KEY constraints
 -- --------------------------------------------------
 
-IF OBJECT_ID(N'[dbo].[FK_InstrumentToType]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Instruments] DROP CONSTRAINT [FK_InstrumentToType];
-GO
 IF OBJECT_ID(N'[dbo].[FK_TradeInstrument]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Trades] DROP CONSTRAINT [FK_TradeInstrument];
 GO
@@ -54,9 +51,8 @@ CREATE TABLE [dbo].[Instruments] (
     [UnderlyingTicker] nvarchar(max)  NOT NULL,
     [Strike] float  NULL,
     [Tenor] float  NULL,
-    [IsCall] bit  NULL,
-    [InstTypeID] int  NOT NULL,
-    [UnderlyingPrice] float  NOT NULL,
+    [CallOrPut] nvarchar(max)  NULL,
+    [InstType] nvarchar(max)  NOT NULL,
     [Rebate] float  NULL,
     [Barrier] float  NULL,
     [InstrumentTicker] nvarchar(max)  NOT NULL,
@@ -83,7 +79,7 @@ GO
 -- Creating table 'Trades'
 CREATE TABLE [dbo].[Trades] (
     [ID] int IDENTITY(1,1) NOT NULL,
-    [IsBuy] bit  NOT NULL,
+    [BuyOrSell] nvarchar(max)  NOT NULL,
     [Quantity] int  NOT NULL,
     [PriceTradedAt] float  NOT NULL,
     [TradeDate] datetime  NOT NULL,
@@ -143,21 +139,6 @@ GO
 -- --------------------------------------------------
 -- Creating all FOREIGN KEY constraints
 -- --------------------------------------------------
-
--- Creating foreign key on [InstTypeID] in table 'Instruments'
-ALTER TABLE [dbo].[Instruments]
-ADD CONSTRAINT [FK_InstrumentToType]
-    FOREIGN KEY ([InstTypeID])
-    REFERENCES [dbo].[InstTypes]
-        ([ID])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
-
--- Creating non-clustered index for FOREIGN KEY 'FK_InstrumentToType'
-CREATE INDEX [IX_FK_InstrumentToType]
-ON [dbo].[Instruments]
-    ([InstTypeID]);
-GO
 
 -- Creating foreign key on [InstrumentID] in table 'Trades'
 ALTER TABLE [dbo].[Trades]

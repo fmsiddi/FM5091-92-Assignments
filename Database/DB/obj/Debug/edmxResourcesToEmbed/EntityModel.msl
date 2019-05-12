@@ -8,9 +8,8 @@
           <ScalarProperty Name="UnderlyingTicker" ColumnName="UnderlyingTicker" />
           <ScalarProperty Name="Strike" ColumnName="Strike" />
           <ScalarProperty Name="Tenor" ColumnName="Tenor" />
-          <ScalarProperty Name="IsCall" ColumnName="IsCall" />
-          <ScalarProperty Name="InstTypeID" ColumnName="InstTypeID" />
-          <ScalarProperty Name="UnderlyingPrice" ColumnName="UnderlyingPrice" />
+          <ScalarProperty Name="CallOrPut" ColumnName="CallOrPut" />
+          <ScalarProperty Name="InstType" ColumnName="InstType" />
           <ScalarProperty Name="Rebate" ColumnName="Rebate" />
           <ScalarProperty Name="Barrier" ColumnName="Barrier" />
           <ScalarProperty Name="InstrumentTicker" ColumnName="InstrumentTicker" />
@@ -40,7 +39,7 @@
       <EntityTypeMapping TypeName="IsTypeOf(EntityModel.Trade)">
         <MappingFragment StoreEntitySet="Trades">
           <ScalarProperty Name="ID" ColumnName="ID" />
-          <ScalarProperty Name="IsBuy" ColumnName="IsBuy" />
+          <ScalarProperty Name="BuyOrSell" ColumnName="BuyOrSell" />
           <ScalarProperty Name="Quantity" ColumnName="Quantity" />
           <ScalarProperty Name="PriceTradedAt" ColumnName="PriceTradedAt" />
           <ScalarProperty Name="TradeDate" ColumnName="TradeDate" />

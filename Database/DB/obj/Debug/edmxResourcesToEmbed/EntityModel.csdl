@@ -4,10 +4,6 @@
     <EntitySet Name="Instruments" EntityType="EntityModel.Instrument" />
     <EntitySet Name="Prices" EntityType="EntityModel.Price" />
     <EntitySet Name="InstTypes" EntityType="EntityModel.InstType" />
-    <AssociationSet Name="InstrumentToType" Association="EntityModel.InstrumentToType">
-      <End Role="Instrument" EntitySet="Instruments" />
-      <End Role="InstType" EntitySet="InstTypes" />
-    </AssociationSet>
     <EntitySet Name="Trades" EntityType="EntityModel.Trade" />
     <AssociationSet Name="TradeInstrument" Association="EntityModel.TradeInstrument">
       <End Role="Trade" EntitySet="Trades" />
@@ -23,11 +19,9 @@
     <Property Name="UnderlyingTicker" Type="String" Nullable="false" />
     <Property Name="Strike" Type="Double" Nullable="true" />
     <Property Name="Tenor" Type="Double" Nullable="true" />
-    <Property Name="IsCall" Type="Boolean" Nullable="true" />
-    <NavigationProperty Name="InstType" Relationship="EntityModel.InstrumentToType" FromRole="Instrument" ToRole="InstType" />
-    <Property Name="InstTypeID" Type="Int32" Nullable="false" />
+    <Property Name="CallOrPut" Type="String" Nullable="true" />
+    <Property Name="InstType" Type="String" Nullable="false" />
     <NavigationProperty Name="Trades" Relationship="EntityModel.TradeInstrument" FromRole="Instrument" ToRole="Trade" />
-    <Property Name="UnderlyingPrice" Type="Double" Nullable="false" />
     <Property Name="Rebate" Type="Double" Nullable="true" />
     <Property Name="Barrier" Type="Double" Nullable="true" />
     <Property Name="InstrumentTicker" Type="String" Nullable="false" />
@@ -48,26 +42,13 @@
     </Key>
     <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="Type" Type="String" Nullable="false" />
-    <NavigationProperty Name="Instruments" Relationship="EntityModel.InstrumentToType" FromRole="InstType" ToRole="Instrument" />
   </EntityType>
-  <Association Name="InstrumentToType">
-    <End Type="EntityModel.Instrument" Role="Instrument" Multiplicity="*" />
-    <End Type="EntityModel.InstType" Role="InstType" Multiplicity="1" />
-    <ReferentialConstraint>
-      <Principal Role="InstType">
-        <PropertyRef Name="ID" />
-      </Principal>
-      <Dependent Role="Instrument">
-        <PropertyRef Name="InstTypeID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <EntityType Name="Trade">
     <Key>
       <PropertyRef Name="ID" />
     </Key>
     <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="IsBuy" Type="Boolean" Nullable="false" />
+    <Property Name="BuyOrSell" Type="String" Nullable="false" />
     <Property Name="Quantity" Type="Int32" Nullable="false" />
     <Property Name="PriceTradedAt" Type="Double" Nullable="false" />
     <Property Name="TradeDate" Type="DateTime" Nullable="false" />

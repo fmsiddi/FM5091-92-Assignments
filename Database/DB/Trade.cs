@@ -15,7 +15,7 @@ namespace DB
     public partial class Trade
     {
         public int ID { get; set; }
-        public bool IsBuy { get; set; }
+        public string BuyOrSell { get; set; }
         public int Quantity { get; set; }
         public double PriceTradedAt { get; set; }
         public System.DateTime TradeDate { get; set; }

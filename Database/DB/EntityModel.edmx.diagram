@@ -8,7 +8,6 @@
         <EntityTypeShape EntityType="EntityModel.Instrument" Width="1.875" PointX="2.375" PointY="0.5" />
         <EntityTypeShape EntityType="EntityModel.Price" Width="1.5" PointX="0.5" PointY="4.5" />
         <EntityTypeShape EntityType="EntityModel.InstType" Width="1.5" PointX="2.375" PointY="4.5" />
-        <AssociationConnector Association="EntityModel.InstrumentToType" />
         <EntityTypeShape EntityType="EntityModel.Trade" Width="1.5" PointX="0.5" PointY="0.5" />
         <AssociationConnector Association="EntityModel.TradeInstrument" />
         <EntityTypeShape EntityType="EntityModel.InterestRate" Width="1.5" PointX="0.5" PointY="6.5" />
